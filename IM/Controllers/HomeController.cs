@@ -1,9 +1,11 @@
 ﻿using IM.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 
 namespace IM.Controllers
 {
+    //[Authorize (Roles = Roles.Admin)]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
