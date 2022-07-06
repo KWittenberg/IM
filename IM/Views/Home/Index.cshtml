@@ -1,8 +1,30 @@
-﻿@{
+﻿@using IM.Models.Dbo
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
+
 <div class="text-center">
+    <br />
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <br />
+    <br />
+
+    @if (SignInManager.IsSignedIn(User))
+    {
+        var user = await UserManager.GetUserAsync(User);
+        var userRoles = await UserManager.GetRolesAsync(user);
+
+
+        <h2>@user.FirstName @user.LastName you are @foreach (var role in userRoles){@role}</h2>
+    }
+    <br />
+    <br />
+
+    <p>WebShop <a href="https://www.behance.net/kwittenberg">ASP.NET Core 6 MVC EF</a>.</p>
 </div>

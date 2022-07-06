@@ -1,0 +1,25 @@
+﻿@model IM.Models.Binding.ProductBinding
+
+@using (Html.BeginForm())
+{
+    
+    <div class="form-group">
+        @Html.LabelFor(x=>x.Title)
+        @Html.TextBoxFor(x=> x.Title, new {@class = "form-control", Required = true, placeholder="unesi Naziv" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x=>x.Description)
+        @Html.TextBoxFor(x=> x.Description, new {@class = "form-control", Required = false, placeholder="unesi Opis"  })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(x=>x.Quantity)
+        @Html.TextBoxFor(x=> x.Quantity, new {@class = "form-control", Required = true, placeholder="unesi Količinu" })
+    </div>
+        <div class="form-group">
+        @Html.LabelFor(x=>x.Price)
+        @Html.TextBoxFor(x=> x.Price, new {@class = "form-control", Required = true, placeholder="unesi Cijenu" })
+    </div>
+
+    <input type="submit" class="btn btn-primary mt-5" value="Add">
+}
+
