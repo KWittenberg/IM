@@ -4,10 +4,17 @@
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
+@{
+    var user = await UserManager.GetUserAsync(User);
+}
+
+
+
+
+
 <ul class="navbar-nav">
-    @if (SignInManager.IsSignedIn(User))
+    @if (user != null)
     {
-        var user = await UserManager.GetUserAsync(User);
         var userRoles = await UserManager.GetRolesAsync(user);
 
         <li class="nav-item">

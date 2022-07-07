@@ -9,12 +9,18 @@ namespace IM.Mapping
     {
         public MappingProfile()
         {
+            // Product
             CreateMap<ProductBinding, Product>();
             CreateMap<Product, ProductViewModel>();
 
+            // ProductCategory
             CreateMap<ProductCategoryBinding, ProductCategory>();
             CreateMap<ProductCategory, ProductCategoryViewModel>();
             CreateMap<ProductCategoryUpdateBinding, ProductCategory>();
+
+            // ShoppingChartItem
+            CreateMap<ShoppingChartItemBinding, ShoppingChartItem>();
+            CreateMap<ShoppingChartItem, ShoppingChartItemViewModel>();
         }
     }
 }

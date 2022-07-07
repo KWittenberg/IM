@@ -6,7 +6,7 @@ namespace IM.Models.Binding
     {
     }
 
-    public class ProductCategoryUpdateBinding : ProductCategoryBinding
+    public class ProductCategoryUpdateBinding: ProductCategoryBinding
     {
         public int Id { get; set; }
     }

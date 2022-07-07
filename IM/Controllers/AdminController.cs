@@ -24,8 +24,14 @@ namespace IM.Controllers
             return View(products);
         }
 
+
+        /// <summary>
+        /// AddProduct
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> AddProduct()
+        //public IActionResult AddProduct()
         {
             return View();
         }
@@ -36,5 +42,24 @@ namespace IM.Controllers
             await productService.AddProductAsync(model);
             return RedirectToAction("ProductAdministration");
         }
+
+
+        /// <summary>
+        /// AddProductCategory
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> AddProductCategory()
+        //public IActionResult AddProductCategory()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddProductCategory(ProductCategoryBinding model)
+        {
+            await productService.AddProductCategoryAsync(model);
+            return RedirectToAction("ProductAdministration");
+        }
+
     }
 }

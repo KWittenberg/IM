@@ -41,11 +41,14 @@ namespace IM.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("StreetAddress")
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PostCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ZipCode")
+                    b.Property<string>("StreetAddress")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -144,7 +147,6 @@ namespace IM.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Price")
@@ -180,7 +182,6 @@ namespace IM.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
@@ -190,6 +191,59 @@ namespace IM.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProductCategory");
+                });
+
+            modelBuilder.Entity("IM.Models.Dbo.ShoppingChart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("ShoppingChart");
+                });
+
+            modelBuilder.Entity("IM.Models.Dbo.ShoppingChartItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(9,2)");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(9,2)");
+
+                    b.Property<int?>("ShoppingChartId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("ShoppingChartId");
+
+                    b.ToTable("ShoppingChartItem");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -349,6 +403,28 @@ namespace IM.Migrations
                     b.Navigation("ProductCategory");
                 });
 
+            modelBuilder.Entity("IM.Models.Dbo.ShoppingChart", b =>
+                {
+                    b.HasOne("IM.Models.Dbo.ApplicationUser", null)
+                        .WithMany("ShoppingChart")
+                        .HasForeignKey("ApplicationUserId");
+                });
+
+            modelBuilder.Entity("IM.Models.Dbo.ShoppingChartItem", b =>
+                {
+                    b.HasOne("IM.Models.Dbo.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("IM.Models.Dbo.ShoppingChart", null)
+                        .WithMany("ShoppingChartItems")
+                        .HasForeignKey("ShoppingChartId");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -403,6 +479,13 @@ namespace IM.Migrations
             modelBuilder.Entity("IM.Models.Dbo.ApplicationUser", b =>
                 {
                     b.Navigation("Address");
+
+                    b.Navigation("ShoppingChart");
+                });
+
+            modelBuilder.Entity("IM.Models.Dbo.ShoppingChart", b =>
+                {
+                    b.Navigation("ShoppingChartItems");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,7 +1,23 @@
-﻿@model IM.Models.Binding.ProductBinding
+﻿@using IM.Services.Interface;
+@model IM.Models.Binding.ProductBinding
+@inject IProductService productService
+
+@{
+    var productCategory = await productService.GetProductCategorysAsync();
+}
+
 
 @using (Html.BeginForm())
 {
+    <div class="form-group">
+        <label asp-for="ProductCategoryId" class="control-label">Odabei kategoriju</label>
+        <select name="ProductCategoryId" class="form-select" aria-label="Default select example">
+            @foreach (var item in productCategory)
+            {
+                <option value="@item.Id">@item.Title</option>
+            }
+        </select>
+    </div>
     
     <div class="form-group">
         @Html.LabelFor(x=>x.Title)

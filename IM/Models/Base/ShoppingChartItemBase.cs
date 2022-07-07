@@ -3,15 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IM.Models.Base
 {
-    public class ProductBase
+    public class ShoppingChartItemBase
     {
-        [Required]
-        [StringLength(200, MinimumLength = 2)]
-        [Display(Name = "Naziv")]
-        public string Title { get; set; }
-        [Display(Name = "Opis")]
-        public string? Description { get; set; }
-
         [Required]
         [Display(Name = "Količina")]
         [Column(TypeName = "decimal(9, 2)")] // Postoji još nekoliko načina za ASP.NET Core 5, ali ovo je najlakši. Prilagodite po potrebi

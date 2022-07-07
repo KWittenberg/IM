@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace IdentityManager.Controllers
 {
     [Authorize(Roles = Roles.Admin)]
-    public class RolesController : Controller
+    public class RolesController: Controller
     {
         
         private readonly RoleManager<IdentityRole> roleManager;

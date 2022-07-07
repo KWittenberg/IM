@@ -1,11 +1,13 @@
 ﻿@using IM.Models.Dbo
 @using Microsoft.AspNetCore.Identity
-@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using IM.Models.ViewModel
+@model List<ProductViewModel>
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
 @{
     ViewData["Title"] = "Home Page";
+    int counter = 1;
 }
 
 
@@ -15,6 +17,7 @@
     <br />
     <br />
 
+    <!-- dio koda ima grešku kod prazne baze -->
     @if (SignInManager.IsSignedIn(User))
     {
         var user = await UserManager.GetUserAsync(User);
@@ -28,3 +31,29 @@
 
     <p>WebShop <a href="https://www.behance.net/kwittenberg">ASP.NET Core 6 MVC EF</a>.</p>
 </div>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Naziv</th>
+        <th scope="col">Opis</th>
+        <th scope="col">Cijena</th>
+        <th scope="col">Detalji</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    @foreach (var product in Model)
+    {
+        <tr>
+            <th scope="row">@counter</th>
+            <td>@product.Title</td>
+            <td>@product.Description</td>
+            <td>@product.Price</td>
+            <td><a href="@Url.Action("ItemView", "Home",new {id = product.Id})" class="btn btn-success">Detalji</a></td>
+        </tr>
+        counter++;
+    }
+    </tbody>
+</table>

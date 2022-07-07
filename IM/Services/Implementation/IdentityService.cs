@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace IM.Services.Implementation
 {
-    public class IdentityService : IIdentityService
+    public class IdentityService: IIdentityService
     {
         private RoleManager<IdentityRole> roleManager;
         private UserManager<ApplicationUser> userManager;
@@ -34,7 +34,7 @@ namespace IM.Services.Implementation
                         {
                             StreetAddress = "J.J. Strossmayera 4.",
                             City = "Požega",
-                            ZipCode = "34000",
+                            PostCode = "34000",
                             Country = "Croatia"
                         }
                     }

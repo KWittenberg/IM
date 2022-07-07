@@ -10,7 +10,7 @@ using IM.Models.Dbo;
 
 namespace IM.Controllers
 {
-    public class ProductCategoriesController : Controller
+    public class ProductCategoriesController: Controller
     {
         private readonly ApplicationDbContext _context;
 

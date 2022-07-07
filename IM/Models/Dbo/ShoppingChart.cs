@@ -3,10 +3,10 @@ using IM.Models.Dbo.Base;
 
 namespace IM.Models.Dbo
 {
-    public class Product: ProductBase, IEntityBase
+    public class ShoppingChart: ShoppingChartBase, IEntityBase
     {
         public int Id { get; set; }
         public DateTime Created { get; set; }
-        public ProductCategory ProductCategory { get; set; }
+        public ICollection<ShoppingChartItem> ShoppingChartItems { get; set; }
     }
 }
