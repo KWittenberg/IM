@@ -5,7 +5,7 @@ using AutoMapper;
 
 namespace IM.Mapping
 {
-    public class MappingProfile : Profile
+    public class MappingProfile: Profile
     {
         public MappingProfile()
         {
@@ -18,9 +18,15 @@ namespace IM.Mapping
             CreateMap<ProductCategory, ProductCategoryViewModel>();
             CreateMap<ProductCategoryUpdateBinding, ProductCategory>();
 
-            // ShoppingChartItem
-            CreateMap<ShoppingChartItemBinding, ShoppingChartItem>();
-            CreateMap<ShoppingChartItem, ShoppingChartItemViewModel>();
+            // ShoppingCartItem
+            CreateMap<ShoppingCartItemBinding, ShoppingCartItem>();
+            CreateMap<ShoppingCartItem, ShoppingCartItemViewModel>();
+
+            // ShoppingCart
+            CreateMap<ShoppingCart, ShoppingCartViewModel>();
+
+            // Address
+            CreateMap<Address, AddressViewModel>();
         }
     }
 }

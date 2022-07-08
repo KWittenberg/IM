@@ -7,4 +7,12 @@
         public const string User = "User";
         public const string Employee = "Employee";
     }
+
+
+    public enum ShoppingCartStatus
+    {
+        Pending,
+        Succeeded,
+        Suspended
+    }
 }

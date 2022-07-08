@@ -57,8 +57,8 @@ namespace IM.Data
         public DbSet<ProductCategory> ProductCategory { get; set; }
 
         // Add ShoppingChart
-        public DbSet<ShoppingChartItem> ShoppingChartItem { get; set; }
-        public DbSet<ShoppingChart> ShoppingChart { get; set; }
+        public DbSet<ShoppingCartItem> ShoppingCartItem { get; set; }
+        public DbSet<ShoppingCart> ShoppingCart { get; set; }
 
 
     }

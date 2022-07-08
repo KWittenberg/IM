@@ -14,7 +14,7 @@ namespace IM.Models.Dbo
         public ICollection<Address> Address { get; set; }
 
         // Add ShoppingChart
-        public ICollection<ShoppingChart> ShoppingChart { get; set; }
+        public ICollection<ShoppingCart> ShoppingCart { get; set; }
 
 
 

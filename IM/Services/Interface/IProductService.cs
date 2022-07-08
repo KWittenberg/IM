@@ -5,12 +5,19 @@ namespace IM.Services.Interface
 {
     public interface IProductService
     {
-        Task<ProductViewModel> AddProductAsync(ProductBinding model);
+        // ProductViewModel
         Task<ProductViewModel> GetProductAsync(int id);
         Task<List<ProductViewModel>> GetProductsAsync();
-        Task<ProductCategoryViewModel> UpdateProductCategoryAsync(ProductCategoryUpdateBinding model);
-        Task<List<ProductCategoryViewModel>> GetProductCategorysAsync();
+        Task<ProductViewModel> AddProductAsync(ProductBinding model);
+
+        // ProductCategoryViewModel
         Task<ProductCategoryViewModel> GetProductCategoryAsync(int id);
+        Task<List<ProductCategoryViewModel>> GetProductCategorysAsync();
         Task<ProductCategoryViewModel> AddProductCategoryAsync(ProductCategoryBinding model);
+        Task<ProductCategoryViewModel> UpdateProductCategoryAsync(ProductCategoryUpdateBinding model);
+
+        // ShoppingCartViewModel
+        Task<ShoppingCartViewModel> GetShoppingCartAsync(string userId);
+        Task<ShoppingCartViewModel> AddShoppingCartAsync(ShoppingCartBinding model);
     }
 }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IM.Models.Base
 {
-    public class ProductBase
+    public abstract class ProductBase
     {
         [Required]
         [StringLength(200, MinimumLength = 2)]

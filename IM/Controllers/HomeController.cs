@@ -1,6 +1,7 @@
 ﻿using IM.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using IM.Models.Binding;
 using IM.Models.Dbo;
 using IM.Services.Interface;
 using Microsoft.AspNetCore.Authorization;
@@ -13,11 +14,13 @@ namespace IM.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IProductService productService;
-        
-        public HomeController(ILogger<HomeController> logger, IProductService productService)
+        private readonly UserManager<ApplicationUser> userManager;
+
+        public HomeController(ILogger<HomeController> logger, IProductService productService, UserManager<ApplicationUser> userManager)
         {
             _logger = logger;
             this.productService = productService;
+            this.userManager = userManager;
         }
 
 
@@ -26,6 +29,9 @@ namespace IM.Controllers
             return View(productService.GetProductsAsync().Result);
         }
 
+
+
+        [Authorize]
         public async Task<IActionResult> ItemView(int id)
         {
             var product = await productService.GetProductAsync(id);
@@ -33,6 +39,22 @@ namespace IM.Controllers
             return View(product);
         }
 
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> ItemView(ShoppingCartBinding model)
+        {
+            model.UserId = userManager.GetUserId(User);
+            var product = await productService.AddShoppingCartAsync(model);
+
+            return RedirectToAction("Index");
+        }
+
+        [Authorize]
+        public async Task<IActionResult> ShoppingCart()
+        {
+            var shoppingCart = await productService.GetShoppingCartAsync(userManager.GetUserId(User));
+            return View(shoppingCart);
+        }
 
 
 

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IM.Models.Base
 {
-    public class ShoppingChartItemBase
+    public abstract class ShoppingCartItemBase
     {
         [Required]
         [Display(Name = "Količina")]

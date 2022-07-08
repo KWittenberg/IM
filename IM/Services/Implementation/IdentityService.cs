@@ -32,13 +32,32 @@ namespace IM.Services.Implementation
                     {
                         new Address
                         {
-                            StreetAddress = "J.J. Strossmayera 4.",
+                            Street = "J.J. Strossmayera 4.",
                             City = "Požega",
                             PostCode = "34000",
                             Country = "Croatia"
                         }
                     }
                 }, "Kejo2#Kejo", Roles.Admin).Wait();
+
+                CreateUserAsync(new ApplicationUser
+                {
+                    FirstName = "Lovro",
+                    LastName = "Wittenberg",
+                    Email = "lovro.wittenberg@gmail.com",
+                    UserName = "lovro.wittenberg@gmail.com",
+                    Address = new List<Address>
+                    {
+                        new Address
+                        {
+                            Street = "Radnička 8.",
+                            City = "Dervišaga",
+                            PostCode = "34000",
+                            Country = "Croatia"
+                        }
+                    }
+                }, "Lovro2#Lovro", Roles.User).Wait();
+
             }
         }
 

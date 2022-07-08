@@ -14,7 +14,7 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
-// Add AutoMaper
+// Add AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddControllersWithViews();
@@ -23,6 +23,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSingleton<IIdentityService, IdentityService>();
 // Add ProductService
 builder.Services.AddScoped<IProductService, ProductService>();
+// Add CustomerService
+builder.Services.AddScoped<ICustomerService, CustomerService>();
 
 
 var app = builder.Build();

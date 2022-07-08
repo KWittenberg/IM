@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,6 +9,9 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/IM.styles.css" asp-append-version="true" />
 </head>
+
+
+
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -35,6 +39,11 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="ProductCategories" asp-action="Index">ProductCategories</a>
                         </li>
                         
+                        
+                        
+                        <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("ShoppingCart", "Home")">Košarica</a></li>
+                        
+
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
