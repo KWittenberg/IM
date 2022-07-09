@@ -1,10 +1,4 @@
-﻿using IM.Models;
-using IM.Models.Binding;
-using IM.Services.Interface;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-
-namespace IM.Controllers
+﻿namespace IM.Controllers
 {
     [Authorize(Roles = Roles.Admin)]
     public class AdminController : Controller
@@ -31,7 +25,6 @@ namespace IM.Controllers
         /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> AddProduct()
-        //public IActionResult AddProduct()
         {
             return View();
         }
@@ -50,16 +43,15 @@ namespace IM.Controllers
         /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> AddProductCategory()
-        //public IActionResult AddProductCategory()
         {
             return View();
         }
+        
         [HttpPost]
         public async Task<IActionResult> AddProductCategory(ProductCategoryBinding model)
         {
             await productService.AddProductCategoryAsync(model);
             return RedirectToAction("ProductAdministration");
         }
-
     }
 }

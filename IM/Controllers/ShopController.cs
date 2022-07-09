@@ -1,13 +1,13 @@
 ﻿namespace IM.Controllers
 {
     //[Authorize (Roles = Roles.Admin)]
-    public class HomeController : Controller
+    public class ShopController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IProductService productService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public HomeController(ILogger<HomeController> logger, IProductService productService, UserManager<ApplicationUser> userManager)
+        public ShopController(ILogger<HomeController> logger, IProductService productService, UserManager<ApplicationUser> userManager)
         {
             _logger = logger;
             this.productService = productService;
@@ -48,20 +48,6 @@
         }
 
 
-
-
-        public IActionResult About()
-        {
-            return View();
-        }
-
-
-
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        
     }
 }

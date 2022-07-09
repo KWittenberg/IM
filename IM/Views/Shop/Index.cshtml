@@ -11,28 +11,8 @@
 }
 
 
-<div class="text-center">
-    <br />
-    <h1 class="display-4">Welcome</h1>
-    <br />
-    <br />
 
-    <!-- dio koda ima grešku kod prazne baze -->
-    @if (SignInManager.IsSignedIn(User))
-    {
-        var user = await UserManager.GetUserAsync(User);
-        var userRoles = await UserManager.GetRolesAsync(user);
-
-
-        <h2>@user.FirstName @user.LastName you are @foreach (var role in userRoles){@role}</h2>
-    }
-    <br />
-    <br />
-
-    <p>WebShop <a href="https://www.behance.net/kwittenberg">ASP.NET Core 6 MVC EF</a>.</p>
-</div>
-
-@*<table class="table table-striped">
+<table class="table table-striped">
     <thead>
     <tr>
         <th scope="col">#</th>
@@ -51,9 +31,9 @@
             <td>@product.Title</td>
             <td>@product.Description</td>
             <td>@product.Price</td>
-            <td><a href="@Url.Action("ItemView", "Home",new {id = product.Id})" class="btn btn-success">Detalji</a></td>
+            <td><a href="@Url.Action("ItemView", "Shop",new {id = product.Id})" class="btn btn-success">Detalji</a></td>
         </tr>
         counter++;
     }
-    </tbody>*@
+    </tbody>
 </table>

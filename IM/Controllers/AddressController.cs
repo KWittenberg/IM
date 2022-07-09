@@ -1,109 +1,96 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using IM.Data;
-using IM.Models;
-using IM.Models.Dbo;
-using Microsoft.AspNetCore.Authorization;
-
-namespace IM.Controllers
+﻿namespace IM.Controllers
 {
     [Authorize(Roles = Roles.Admin)]
     public class AddressController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ApplicationDbContext db;
 
-        public AddressController(ApplicationDbContext context)
+        public AddressController(ApplicationDbContext db)
         {
-            _context = context;
+            this.db = db;
         }
 
-        // GET: Address
+        /// <summary>
+        /// GET: Address
+        /// </summary>
+        /// <returns></returns>
         public async Task<IActionResult> Index()
         {
-              return _context.Address != null ? 
-                          View(await _context.Address.Include(am => am.ApplicationUser).ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Address'  is null.");
+            return this.db.Address != null ?
+                        View(await this.db.Address.Include(am => am.ApplicationUser).ToListAsync()) :
+                        Problem("Entity set 'ApplicationDbContext.Address'  is null.");
         }
 
-        // GET: Address/Details/5
+        /// <summary>
+        /// GET: Address/Details/1
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Address == null)
-            {
-                return NotFound();
-            }
+            if (id == null || this.db.Address == null) { return NotFound(); }
 
-            var address = await _context.Address
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (address == null)
-            {
-                return NotFound();
-            }
+            var address = await this.db.Address.FirstOrDefaultAsync(m => m.Id == id);
+
+            if (address == null) { return NotFound(); }
 
             return View(address);
         }
 
-        // GET: Address/Create
+
+        /// <summary>
+        /// Address/Create
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Address/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,StreetAddress,City,ZipCode,Country")] Address address)
+        public async Task<IActionResult> Create([Bind("Id,FistName,LastName,StreetAddress,City,PostCode,Country")] Address address)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(address);
-                await _context.SaveChangesAsync();
+                this.db.Add(address);
+                await this.db.SaveChangesAsync();
+                TempData["success"] = "Address created successfully";
                 return RedirectToAction(nameof(Index));
             }
             return View(address);
         }
 
-        // GET: Address/Edit/5
+
+        /// <summary>
+        /// Address/Edit
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Address == null)
-            {
-                return NotFound();
-            }
+            if (id == null || this.db.Address == null) { return NotFound(); }
 
-            var address = await _context.Address.FindAsync(id);
-            if (address == null)
-            {
-                return NotFound();
-            }
+            var address = await this.db.Address.FindAsync(id);
+
+            if (address == null) { return NotFound(); }
+
             return View(address);
         }
 
-        // POST: Address/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,StreetAddress,City,ZipCode,Country")] Address address)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,StreetAddress,City,PostCode,Country")] Address address)
         {
-            if (id != address.Id)
-            {
-                return NotFound();
-            }
+            if (id != address.Id) { return NotFound(); }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(address);
-                    await _context.SaveChangesAsync();
+                    this.db.Update(address);
+                    await this.db.SaveChangesAsync();
+                    TempData["success"] = "Address update successfully";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -121,46 +108,45 @@ namespace IM.Controllers
             return View(address);
         }
 
-        // GET: Address/Delete/5
+
+        /// <summary>
+        /// Address/Delete
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Address == null)
-            {
-                return NotFound();
-            }
+            if (id == null || this.db.Address == null) { return NotFound(); }
 
-            var address = await _context.Address
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (address == null)
-            {
-                return NotFound();
-            }
+            var address = await this.db.Address.FirstOrDefaultAsync(m => m.Id == id);
+            
+            if (address == null) { return NotFound(); }
 
             return View(address);
         }
 
-        // POST: Address/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Address == null)
+            if (this.db.Address == null)
             {
                 return Problem("Entity set 'ApplicationDbContext.Address'  is null.");
             }
-            var address = await _context.Address.FindAsync(id);
+            var address = await this.db.Address.FindAsync(id);
             if (address != null)
             {
-                _context.Address.Remove(address);
+                this.db.Address.Remove(address);
             }
-            
-            await _context.SaveChangesAsync();
+
+            await this.db.SaveChangesAsync();
+            TempData["success"] = "Address deleted successfully";
             return RedirectToAction(nameof(Index));
         }
 
         private bool AddressExists(int id)
         {
-          return (_context.Address?.Any(e => e.Id == id)).GetValueOrDefault();
+            return (this.db.Address?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

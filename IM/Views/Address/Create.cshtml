@@ -1,48 +1,70 @@
 ﻿@model IM.Models.Dbo.Address
-
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "New Address";
 }
 
-<h1>Create</h1>
+<br />
+<br />
 
-<h4>Address</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Street" class="control-label"></label>
-                <input asp-for="Street" class="form-control" />
-                <span asp-validation-for="Street" class="text-danger"></span>
+<div class="container-fluid">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-6 offset-1">
+            <!-- general form elements -->
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">New Address</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form method="post">
+                    <div class="card-body">
+
+                        @* <div class="form-group">
+                        <label asp-for="ApplicationUserId" class="control-label">Odabei usera</label>
+                        <select name="ApplicationUserId" class="form-select" aria-label="Default select example">
+                        @foreach (var item in users)
+                        {
+                        <option value="@item.Id">@item.LastName</option>
+                        }
+                        </select>
+                        </div>*@
+
+
+
+                        <div class="form-group">
+                            <label> &nbsp; &nbsp; Street</label>
+                            <input asp-for="Street" type="text" class="form-control" placeholder=" street name">
+                            <span asp-validation-for="Street" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label> &nbsp; &nbsp; City</label>
+                            <input asp-for="City" type="text" class="form-control" placeholder=" city name">
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label> &nbsp; &nbsp; PostCode</label>
+                            <input asp-for="PostCode" type="text" class="form-control" placeholder=" post number">
+                            <span asp-validation-for="PostCode" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label> &nbsp; &nbsp; Country</label>
+                            <input asp-for="Country" type="text" class="form-control" placeholder=" country name">
+                            <span asp-validation-for="Country" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer" align="right">
+                        <button type="submit" class="btn btn-primary">Create</button><a asp-controller="Address" asp-action="Index" class="btn btn-secondary">Back</a>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="City" class="control-label"></label>
-                <input asp-for="City" class="form-control" />
-                <span asp-validation-for="City" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PostCode" class="control-label"></label>
-                <input asp-for="PostCode" class="form-control" />
-                <span asp-validation-for="PostCode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Country" class="control-label"></label>
-                <input asp-for="Country" class="form-control" />
-                <span asp-validation-for="Country" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+@*@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }*@

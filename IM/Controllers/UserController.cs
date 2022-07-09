@@ -1,12 +1,6 @@
-﻿using System.Security.Claims;
-using IM.Data;
-using IM.Models;
-using IM.Models.Dbo;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-
-namespace IdentityManager.Controllers
+﻿namespace IdentityManager.Controllers
 {
+    [Authorize(Roles = Roles.Admin)]
     public class UserController: Controller
     {
         private readonly ApplicationDbContext _db;
@@ -91,7 +85,7 @@ namespace IdentityManager.Controllers
                 await _userManager.AddToRoleAsync(objFromDb, _db.Roles.FirstOrDefault(u => u.Id == user.RoleId).Name);
                 objFromDb.LastName = user.LastName;
                 _db.SaveChanges();
-                TempData[SD.Success] = "User has been edited successfully.";
+                TempData["success"] = "User has been edited successfully.";
                 return RedirectToAction(nameof(Index));
             }
 
@@ -117,13 +111,13 @@ namespace IdentityManager.Controllers
                 //user is locked and will remain locked untill lockoutend time
                 //clicking on this action will unlock them
                 objFromDb.LockoutEnd = DateTime.Now;
-                TempData[SD.Success] = "User unlocked successfully.";
+                TempData["success"] = "User unlocked successfully.";
             }
             else
             {
                 //user is not locked, and we want to lock the user
                 objFromDb.LockoutEnd = DateTime.Now.AddYears(1000);
-                TempData[SD.Success] = "User locked successfully.";
+                TempData["success"] = "User locked successfully.";
             }
             _db.SaveChanges();
             return RedirectToAction(nameof(Index));
@@ -140,7 +134,7 @@ namespace IdentityManager.Controllers
             }
             _db.ApplicationUser.Remove(objFromDb);
             _db.SaveChanges();
-            TempData[SD.Success] = "User deleted successfully.";
+            TempData["success"] = "User deleted successfully.";
             return RedirectToAction(nameof(Index));
         }
 

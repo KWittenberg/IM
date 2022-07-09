@@ -1,6 +1,4 @@
-﻿using IM.Models.Base;
-
-namespace IM.Models.ViewModel
+﻿namespace IM.Models.ViewModel
 {
     public class ShoppingCartItemViewModel: ShoppingCartItemBase
     {

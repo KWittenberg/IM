@@ -1,9 +1,4 @@
-﻿using IM.Models.Dbo;
-using IM.Models.Dbo.Base;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-
-namespace IM.Data
+﻿namespace IM.Data
 {
     public class ApplicationDbContext: IdentityDbContext<ApplicationUser>
     {
@@ -59,7 +54,5 @@ namespace IM.Data
         // Add ShoppingChart
         public DbSet<ShoppingCartItem> ShoppingCartItem { get; set; }
         public DbSet<ShoppingCart> ShoppingCart { get; set; }
-
-
     }
 }

@@ -12,17 +12,18 @@
     {
         var userRoles = await UserManager.GetRolesAsync(user);
 
-        <li class="nav-item"><a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hi @user.FirstName @user.LastName</a></li>
+        <li class="nav-item"><a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hi @user.FirstName</a></li>
 
-        @switch (userRoles[0])
+       @* @switch (userRoles[0])
         {
             case Roles.Admin:
+                <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("ShoppingCart", "Home")">Cart</a></li>
                 <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("ProductAdministration", "Admin")">Administracija proizvoda</a></li>
                 break;
             case Roles.User:
-                <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("ShoppingCart", "Home")">Košarica</a></li>
+                <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("ShoppingCart", "Home")">Cart</a></li>
                 break;
-        }
+        }*@
         
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">

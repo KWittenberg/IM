@@ -1,13 +1,4 @@
-﻿using IM.Data;
-using IM.Models.Binding;
-using IM.Models.Dbo;
-using IM.Models.ViewModel;
-using IM.Services.Interface;
-using Microsoft.EntityFrameworkCore;
-using AutoMapper;
-
-
-namespace IM.Services.Implementation
+﻿namespace IM.Services.Implementation
 {
     public class ProductService: IProductService
     {
@@ -140,11 +131,7 @@ namespace IM.Services.Implementation
             return dbo.Select(x => mapper.Map<ShoppingCartItemViewModel>(x)).ToList();
         }
 
-
-
-
-
-
+        
 
         /// <summary>
         /// AddShoppingCart

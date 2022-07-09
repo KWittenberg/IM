@@ -1,9 +1,4 @@
-﻿using IM.Models;
-using IM.Models.Dbo;
-using IM.Services.Interface;
-using Microsoft.AspNetCore.Identity;
-
-namespace IM.Services.Implementation
+﻿namespace IM.Services.Implementation
 {
     public class IdentityService: IIdentityService
     {
@@ -107,7 +102,5 @@ namespace IM.Services.Implementation
                 }
             }
         }
-
-
     }
 }

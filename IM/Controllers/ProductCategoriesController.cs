@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using IM.Data;
-using IM.Models.Dbo;
-
-namespace IM.Controllers
+﻿namespace IM.Controllers
 {
+    [Authorize(Roles = Roles.Admin)]
     public class ProductCategoriesController: Controller
     {
         private readonly ApplicationDbContext _context;
@@ -27,7 +18,7 @@ namespace IM.Controllers
                           Problem("Entity set 'ApplicationDbContext.ProductCategory'  is null.");
         }
 
-        // GET: ProductCategories/Details/5
+        // GET: ProductCategories/Details/1
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.ProductCategory == null)
@@ -35,8 +26,7 @@ namespace IM.Controllers
                 return NotFound();
             }
 
-            var productCategory = await _context.ProductCategory
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var productCategory = await _context.ProductCategory.FirstOrDefaultAsync(m => m.Id == id);
             if (productCategory == null)
             {
                 return NotFound();
@@ -45,15 +35,13 @@ namespace IM.Controllers
             return View(productCategory);
         }
 
+
         // GET: ProductCategories/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: ProductCategories/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Created,Title,Description")] ProductCategory productCategory)
@@ -62,12 +50,14 @@ namespace IM.Controllers
             {
                 _context.Add(productCategory);
                 await _context.SaveChangesAsync();
+                TempData["success"] = "Category created successfully";
                 return RedirectToAction(nameof(Index));
             }
             return View(productCategory);
         }
 
-        // GET: ProductCategories/Edit/5
+
+        // GET: ProductCategories/Edit/1
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.ProductCategory == null)
@@ -83,9 +73,6 @@ namespace IM.Controllers
             return View(productCategory);
         }
 
-        // POST: ProductCategories/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Created,Title,Description")] ProductCategory productCategory)
@@ -101,6 +88,7 @@ namespace IM.Controllers
                 {
                     _context.Update(productCategory);
                     await _context.SaveChangesAsync();
+                    TempData["success"] = "Category updated successfully";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -118,7 +106,8 @@ namespace IM.Controllers
             return View(productCategory);
         }
 
-        // GET: ProductCategories/Delete/5
+        
+        // GET: ProductCategories/Delete/1
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.ProductCategory == null)
@@ -126,8 +115,7 @@ namespace IM.Controllers
                 return NotFound();
             }
 
-            var productCategory = await _context.ProductCategory
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var productCategory = await _context.ProductCategory.FirstOrDefaultAsync(m => m.Id == id);
             if (productCategory == null)
             {
                 return NotFound();
@@ -136,7 +124,6 @@ namespace IM.Controllers
             return View(productCategory);
         }
 
-        // POST: ProductCategories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -152,6 +139,7 @@ namespace IM.Controllers
             }
             
             await _context.SaveChangesAsync();
+            TempData["success"] = "Category deleted successfully";
             return RedirectToAction(nameof(Index));
         }
 

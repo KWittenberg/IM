@@ -1,22 +1,14 @@
-﻿using IM.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-
-namespace IdentityManager.Controllers
+﻿namespace IdentityManager.Controllers
 {
     [Authorize(Roles = Roles.Admin)]
-    public class RolesController: Controller
+    public class RolesController : Controller
     {
-        
         private readonly RoleManager<IdentityRole> roleManager;
-        
 
         public RolesController(RoleManager<IdentityRole> roleManager)
         {
             this.roleManager = roleManager;
-            }
-
+        }
 
         public IActionResult Index()
         {
@@ -24,6 +16,12 @@ namespace IdentityManager.Controllers
             return View(roles);
         }
 
+        
+        /// <summary>
+        /// Upsert
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Upsert(string id)
         {
@@ -37,26 +35,23 @@ namespace IdentityManager.Controllers
                 var objFromDb = this.roleManager.Roles.FirstOrDefault(u => u.Id == id);
                 return View(objFromDb);
             }
-
-
         }
 
         [HttpPost]
-        //[Authorize(Policy = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Upsert(IdentityRole roleObj)
         {
             if (await this.roleManager.RoleExistsAsync(roleObj.Name))
             {
                 //error
-                TempData[SD.Error] = "Role already exists.";
+                TempData["error"] = "Role already exists.";
                 return RedirectToAction(nameof(Index));
             }
             if (string.IsNullOrEmpty(roleObj.Id))
             {
                 //create
                 await this.roleManager.CreateAsync(new IdentityRole() { Name = roleObj.Name });
-                TempData[SD.Success] = "Role created successfully";
+                TempData["success"] = "Role created successfully";
             }
             else
             {
@@ -64,40 +59,57 @@ namespace IdentityManager.Controllers
                 var objRoleFromDb = this.roleManager.Roles.FirstOrDefault(u => u.Id == roleObj.Id);
                 if (objRoleFromDb == null)
                 {
-                    TempData[SD.Error] = "Role not found.";
+                    TempData["error"] = "Role not found.";
                     return RedirectToAction(nameof(Index));
                 }
                 objRoleFromDb.Name = roleObj.Name;
                 objRoleFromDb.NormalizedName = roleObj.Name.ToUpper();
                 var result = await this.roleManager.UpdateAsync(objRoleFromDb);
-                TempData[SD.Success] = "Role updated successfully";
+                TempData["success"] = "Role updated successfully";
             }
             return RedirectToAction(nameof(Index));
 
         }
+        
+        /// <summary>
+        /// Delete
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult Delete(string id)
+        {
+            if (String.IsNullOrEmpty(id))
+            {
+                return View();
+            }
+            else
+            {
+                //update
+                var objFromDb = this.roleManager.Roles.FirstOrDefault(u => u.Id == id);
+                return View(objFromDb);
+            }
+        }
 
-
-        [HttpPost]
-        //[Authorize(Policy = "Admin")]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(string id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var objFromDb = this.roleManager.Roles.FirstOrDefault(u => u.Id == id);
             if (objFromDb == null)
             {
-                TempData[SD.Error] = "Role not found.";
+                TempData["error"] = "Role not found.";
                 return RedirectToAction(nameof(Index));
             }
             var userRolesForThisRole = this.roleManager.Roles.Where(u => u.Id == id).Count();
-            if (userRolesForThisRole > 0)
-            {
-                TempData[SD.Error] = "Cannot delete this role, since there are users assigned to this role.";
-                return RedirectToAction(nameof(Index));
-            }
+            //if (userRolesForThisRole > 0)
+            //{
+            //    TempData["error"] = "Cannot delete this role, since there are users assigned to this role.";
+            //    return RedirectToAction(nameof(Index));
+            //}
             await this.roleManager.DeleteAsync(objFromDb);
-            TempData[SD.Success] = "Role deleted successfully.";
+            TempData["success"] = "Role deleted successfully.";
             return RedirectToAction(nameof(Index));
         }
-
     }
 }
