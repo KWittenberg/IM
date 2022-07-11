@@ -1,7 +1,6 @@
-﻿namespace IM.Models.ViewModel
+﻿namespace IM.Models.ViewModel;
+
+public class ShoppingCartItemViewModel : ShoppingCartItemBase
 {
-    public class ShoppingCartItemViewModel: ShoppingCartItemBase
-    {
-        public ProductViewModel Product { get; set; }
-    }
+    public ProductViewModel Product { get; set; }
 }

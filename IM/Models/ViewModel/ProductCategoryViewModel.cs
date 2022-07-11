@@ -1,7 +1,6 @@
-﻿namespace IM.Models.ViewModel
+﻿namespace IM.Models.ViewModel;
+
+public class ProductCategoryViewModel : ProductCategoryBase
 {
-    public class ProductCategoryViewModel: ProductCategoryBase
-    {
-        public int Id { get; set; }
-    }
+    public int Id { get; set; }
 }

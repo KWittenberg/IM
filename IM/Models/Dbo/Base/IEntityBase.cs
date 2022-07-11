@@ -1,8 +1,7 @@
-﻿namespace IM.Models.Dbo.Base
+﻿namespace IM.Models.Dbo.Base;
+
+public interface IEntityBase
 {
-    public interface IEntityBase
-    {
-        public int Id { get; set; }
-        public DateTime Created { get; set; }
-    }
+    public int Id { get; set; }
+    public DateTime Created { get; set; }
 }

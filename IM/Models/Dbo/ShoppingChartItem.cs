@@ -1,9 +1,8 @@
-﻿namespace IM.Models.Dbo
+﻿namespace IM.Models.Dbo;
+
+public class ShoppingCartItem : ShoppingCartItemBase, IEntityBase
 {
-    public class ShoppingCartItem: ShoppingCartItemBase, IEntityBase
-    {
-        public int Id { get; set; }
-        public DateTime Created { get; set; }
-        public Product Product { get; set; }
-    }
+    public int Id { get; set; }
+    public DateTime Created { get; set; }
+    public Product Product { get; set; }
 }

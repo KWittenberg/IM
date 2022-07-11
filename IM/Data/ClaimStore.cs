@@ -1,12 +1,11 @@
-﻿namespace IM.Data
+﻿namespace IM.Data;
+
+public static class ClaimStore
 {
-    public static class ClaimStore
-    {
-        public static List<Claim> claimsList = new List<Claim>()
+    public static List<Claim> claimsList = new List<Claim>()
         {
             new Claim("Create","Create"),
             new Claim("Edit","Edit"),
             new Claim("Delete","Delete")
         };
-    }
 }

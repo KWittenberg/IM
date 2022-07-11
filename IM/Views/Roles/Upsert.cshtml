@@ -1,16 +1,13 @@
 ﻿@model Microsoft.AspNetCore.Identity.IdentityRole
-
 @{
     var title = "New Role";
 }
-
 
 @if (Model != null && !String.IsNullOrEmpty(Model.Id))
 {
     title = "Edit Role";
     <input asp-for="@Model.Id" hidden />
 }
-
 
 <br />
 <br />
@@ -60,7 +57,6 @@
         </div>
     </div>
 </div>
-
 
 @section Scripts{
     @{

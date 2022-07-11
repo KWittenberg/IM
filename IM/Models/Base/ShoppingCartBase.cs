@@ -1,6 +1,5 @@
-﻿namespace IM.Models.Base
+﻿namespace IM.Models.Base;
+
+public abstract class ShoppingCartBase
 {
-    public abstract class ShoppingCartBase
-    {
-    }
 }

@@ -1,6 +1,5 @@
-﻿namespace IM.Models.Binding
+﻿namespace IM.Models.Binding;
+
+public class ShoppingCartItemBinding : ShoppingCartItemBase
 {
-    public class ShoppingCartItemBinding: ShoppingCartItemBase
-    {
-    }
 }

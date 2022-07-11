@@ -1,10 +1,11 @@
-﻿namespace IM.Services.Interface
-{
-    public interface ICustomerService
-    {
-        Task<AddressViewModel> GetAddress(string userId);
+﻿namespace IM.Services.Interface;
 
-        Task<ApplicationUserViewModel> GetApplicationUser(string userId);
-        Task<List<ApplicationUserViewModel>> GetApplicationUsers();
-    }
+public interface ICustomerService
+{
+    // AddressViewModel
+    Task<AddressViewModel> GetAddress(string userId);
+
+    // ApplicationUserViewModel
+    Task<ApplicationUserViewModel> GetApplicationUser(string userId);
+    Task<List<ApplicationUserViewModel>> GetApplicationUsers();
 }
