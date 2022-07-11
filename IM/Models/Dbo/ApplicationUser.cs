@@ -1,9 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using IM.Models.Base;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Rendering;
-
-namespace IM.Models.Dbo
+﻿namespace IM.Models.Dbo
 {
     public class ApplicationUser: IdentityUser
     {

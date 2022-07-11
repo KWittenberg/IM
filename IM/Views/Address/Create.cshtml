@@ -1,6 +1,8 @@
 ﻿@model IM.Models.Dbo.Address
+@inject ICustomerService customerService
 @{
     ViewData["Title"] = "New Address";
+    var users = await customerService.GetApplicationUsers();
 }
 
 <br />
@@ -20,22 +22,20 @@
                 <form method="post">
                     <div class="card-body">
 
-                        @* <div class="form-group">
-                        <label asp-for="ApplicationUserId" class="control-label">Odabei usera</label>
-                        <select name="ApplicationUserId" class="form-select" aria-label="Default select example">
-                        @foreach (var item in users)
-                        {
-                        <option value="@item.Id">@item.LastName</option>
-                        }
-                        </select>
-                        </div>*@
-
-
-
+                        <div class="form-group">
+                            <label> &nbsp; &nbsp; User</label>
+                            <select name="ApplicationUserId" class="form-select" aria-label="Default select example">
+                                @foreach (var item in users)
+                                {
+                                    <option value="@item.Id">@item.FirstName @item.LastName</option>
+                                }
+                            </select>
+                        </div>
+                       
                         <div class="form-group">
                             <label> &nbsp; &nbsp; Street</label>
                             <input asp-for="Street" type="text" class="form-control" placeholder=" street name">
-                            <span asp-validation-for="Street" class="text-danger"></span>
+                            @*<span asp-validation-for="Street" class="text-danger"></span>*@
                         </div>
                         <div class="form-group">
                             <label> &nbsp; &nbsp; City</label>

@@ -25,6 +25,9 @@ namespace IM.Mapping
 
             // Address
             CreateMap<Address, AddressViewModel>();
+
+            // ApplicationUser
+            CreateMap<ApplicationUser, ApplicationUserViewModel>();
         }
     }
 }

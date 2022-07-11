@@ -1,9 +1,10 @@
-﻿using IM.Models.Base;
-
-namespace IM.Models.ViewModel
+﻿namespace IM.Models.ViewModel
 {
     public class AddressViewModel: AddressBase
     {
         public int Id { get; set; }
+
+        // Relationships to ApplicationUser
+        // public List<string> ApplicationUserId { get; set; }
     }
 }

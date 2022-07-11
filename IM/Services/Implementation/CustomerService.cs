@@ -12,7 +12,7 @@
         }
 
         /// <summary>
-        /// GetAddress
+        /// Get Address
         /// </summary>
         /// <param name="userId"></param>
         /// <returns></returns>
@@ -22,6 +22,29 @@
             return mapper.Map<AddressViewModel>(address);
         }
 
+
+
+
+        /// <summary>
+        /// Get ApplicationUser
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ApplicationUserViewModel> GetApplicationUser(string userId)
+        {
+            var users = await db.ApplicationUser.FindAsync(userId);
+
+            return mapper.Map<ApplicationUserViewModel>(users);
+        }
+
+        /// <summary>
+        /// Get All ApplicationUsers
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<ApplicationUserViewModel>> GetApplicationUsers()
+        {
+            var dbo = await db.ApplicationUser.ToListAsync();
+            return dbo.Select(x => mapper.Map<ApplicationUserViewModel>(x)).ToList();
+        }
 
     }
 }

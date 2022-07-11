@@ -4,11 +4,13 @@
     public class AddressController : Controller
     {
         private readonly ApplicationDbContext db;
+        private readonly ICustomerService customerService;
 
-        public AddressController(ApplicationDbContext db)
+        public AddressController(ApplicationDbContext db, ICustomerService customerService)
         {
             this.db = db;
-        }
+            this.customerService = customerService;
+            }
 
         /// <summary>
         /// GET: Address
@@ -49,7 +51,7 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FistName,LastName,StreetAddress,City,PostCode,Country")] Address address)
+        public async Task<IActionResult> Create([Bind("Id,FistName,LastName,Street,City,PostCode,Country")] Address address)
         {
             if (ModelState.IsValid)
             {
@@ -80,7 +82,7 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,StreetAddress,City,PostCode,Country")] Address address)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Street,City,PostCode,Country")] Address address)
         {
             if (id != address.Id) { return NotFound(); }
 

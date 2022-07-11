@@ -177,7 +177,6 @@
                 .Include(x => x.ShoppingCartItems)
                 .ThenInclude(x => x.Product)
                 .ThenInclude(x => x.ProductCategory)
-
                 .FirstOrDefaultAsync(x => x.ApplicationUser.Id == userId && x.ShoppingCartStatus == Models.ShoppingCartStatus.Pending);
             return mapper.Map<ShoppingCartViewModel>(shoppingCart);
         }

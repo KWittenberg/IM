@@ -1,10 +1,3 @@
-using IM.Data;
-using IM.Models.Dbo;
-using IM.Services.Implementation;
-using IM.Services.Interface;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
