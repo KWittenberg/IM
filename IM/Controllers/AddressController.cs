@@ -51,16 +51,16 @@ public class AddressController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create([Bind("Id,FistName,LastName,Street,City,PostCode,Country")] Address address)
+    public async Task<IActionResult> Create(AddressViewModel addressViewModel)
     {
         if (ModelState.IsValid)
         {
-            this.db.Add(address);
+            this.db.Add(addressViewModel);
             await this.db.SaveChangesAsync();
             TempData["success"] = "Address created successfully";
             return RedirectToAction(nameof(Index));
         }
-        return View(address);
+        return View(addressViewModel);
     }
 
 

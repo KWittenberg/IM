@@ -28,6 +28,28 @@ public class ProductService : IProductService
     }
 
     /// <summary>
+    /// Update Product
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    public async Task<ProductViewModel> UpdateProductAsync(ProductUpdateBinding model)
+    {
+        var dbo = await db.Product.FindAsync(model.Id);
+        mapper.Map(model, dbo);
+        await db.SaveChangesAsync();
+        return mapper.Map<ProductViewModel>(dbo);
+    }
+
+
+
+
+
+
+
+
+
+
+    /// <summary>
     /// Find Product by id-1
     /// </summary>
     /// <param name="id"></param>
@@ -122,7 +144,7 @@ public class ProductService : IProductService
     }
 
     /// <summary>
-    /// GetShoppingCartItems
+    /// Get ShoppingCartItems
     /// </summary>
     /// <returns></returns>
     public async Task<List<ShoppingCartItemViewModel>> GetShoppingCartItemsAsync()
@@ -140,6 +162,12 @@ public class ProductService : IProductService
     /// <returns></returns>
     public async Task<ShoppingCartViewModel> AddShoppingCartAsync(ShoppingCartBinding model)
     {
+        if (model.ShoppingCartId.HasValue)
+        {
+            return await AddItemToShoppingCartAsync(model);
+        }
+
+
         var product = await db.Product.FindAsync(model.ProductId);
         product.Quantity -= model.Quantity;
 
@@ -178,6 +206,138 @@ public class ProductService : IProductService
             .ThenInclude(x => x.Product)
             .ThenInclude(x => x.ProductCategory)
             .FirstOrDefaultAsync(x => x.ApplicationUser.Id == userId && x.ShoppingCartStatus == Models.ShoppingCartStatus.Pending);
+
+        if (shoppingCart == null)
+        {
+            return null;
+
+        }
+
         return mapper.Map<ShoppingCartViewModel>(shoppingCart);
+    }
+
+    /// <summary>
+    /// Get ShoppingCarts Status
+    /// </summary>
+    /// <param name="status"></param>
+    /// <returns></returns>
+    public async Task<List<ShoppingCartViewModel>> GetShoppingCartsAsync(ShoppingCartStatus status)
+    {
+        var shoppingCarts = await db.ShoppingCart
+            .Include(x => x.ShoppingCartItems)
+            .ThenInclude(x => x.Product)
+            .ThenInclude(x => x.ProductCategory)
+
+            .Where(x => x.ShoppingCartStatus == status).ToListAsync();
+
+        if (!shoppingCarts.Any())
+        {
+            return new List<ShoppingCartViewModel>();
+        }
+
+        return shoppingCarts.Select(x => mapper.Map<ShoppingCartViewModel>(x)).ToList();
+    }
+
+
+    
+    /// <summary>
+    /// Get Order
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public async Task<OrderViewModel> GetOrderAsync(int id)
+    {
+        var order = await db.Order
+            .Include(x => x.ShoppingCart)
+            .ThenInclude(x => x.ApplicationUser)
+            .Include(x => x.ShoppingCart)
+            .ThenInclude(x => x.ShoppingCartItems)
+            .ThenInclude(x => x.Product)
+            .FirstOrDefaultAsync(x => x.Id == id);
+
+        return mapper.Map<OrderViewModel>(order);
+    }
+    
+    /// <summary>
+    /// Get Orders
+    /// </summary>
+    /// <returns></returns>
+    public async Task<List<OrderViewModel>> GetOrdersAsync()
+    {
+        var orders = await db.Order
+            .Include(x => x.ShoppingCart)
+            .ThenInclude(x => x.ApplicationUser)
+            .Include(x => x.ShoppingCart)
+            .ThenInclude(x => x.ShoppingCartItems)
+            .ThenInclude(x => x.Product)
+            .ToListAsync();
+
+        return orders.Select(x => mapper.Map<OrderViewModel>(x)).ToList();
+    }
+
+    /// <summary>
+    /// Add Order
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    public async Task<OrderViewModel> AddOrder(OrderBinding model)
+    {
+        var shoppingCart = await db.ShoppingCart.FirstOrDefaultAsync(x => x.Id == model.ShoppingCartId);
+        shoppingCart.ShoppingCartStatus = Models.ShoppingCartStatus.Succeeded;
+
+        if (shoppingCart == null)
+        {
+            return null;
+        }
+
+        var dbo = new Order
+        {
+            Paid = true,
+            ShoppingCart = shoppingCart
+
+        };
+
+        db.Order.Add(dbo);
+        await db.SaveChangesAsync();
+        return mapper.Map<OrderViewModel>(dbo);
+    }
+    
+
+
+    /// <summary>
+    /// Add Item To ShoppingCart
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    private async Task<ShoppingCartViewModel> AddItemToShoppingCartAsync(ShoppingCartBinding model)
+    {
+        var product = await db.Product.FindAsync(model.ProductId);
+        product.Quantity -= model.Quantity;
+        var user = await db.Users.FirstOrDefaultAsync(x => x.Id == model.UserId);
+
+        if (product == null || user == null)
+        {
+            return null;
+        }
+
+        var shoppingCartItem = new ShoppingCartItem
+        {
+            Price = model.Price,
+            Product = product,
+            Quantity = model.Quantity
+        };
+
+        var dbo = await db.ShoppingCart
+            .Include(x => x.ShoppingCartItems)
+            .FirstOrDefaultAsync(x => x.Id == model.ShoppingCartId.GetValueOrDefault());
+
+        if (dbo == null)
+        {
+            return null;
+        }
+
+        dbo.ShoppingCartItems.Add(shoppingCartItem);
+        await db.SaveChangesAsync();
+        return mapper.Map<ShoppingCartViewModel>(dbo);
     }
 }

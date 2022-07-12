@@ -1,4 +1,6 @@
-﻿namespace IM.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using IM.Models.ViewModel;
+namespace IM.Data;
 
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 {
@@ -54,4 +56,10 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     // Add ShoppingChart
     public DbSet<ShoppingCartItem> ShoppingCartItem { get; set; }
     public DbSet<ShoppingCart> ShoppingCart { get; set; }
+
+    // Add Order
+    public DbSet<Order> Order { get; set; }
+
+    // Add Order
+    public DbSet<IM.Models.ViewModel.ProductViewModel>? ProductViewModel { get; set; }
 }

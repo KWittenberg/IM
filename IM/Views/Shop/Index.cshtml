@@ -4,36 +4,34 @@
 @model List<ProductViewModel>
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
-
 @{
     ViewData["Title"] = "Home Page";
-    int counter = 1;
 }
 
+<br />
+<br />
 
-
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">Naziv</th>
-        <th scope="col">Opis</th>
-        <th scope="col">Cijena</th>
-        <th scope="col">Detalji</th>
-    </tr>
-    </thead>
-    <tbody>
-
+<div class="row row-cols-1 row-cols-md-3 g-4">
     @foreach (var product in Model)
     {
-        <tr>
-            <th scope="row">@counter</th>
-            <td>@product.Title</td>
-            <td>@product.Description</td>
-            <td>@product.Price</td>
-            <td><a href="@Url.Action("ItemView", "Shop",new {id = product.Id})" class="btn btn-success">Detalji</a></td>
-        </tr>
-        counter++;
+        <div class="col">
+            <div class="card h-100">
+                <img src="/img/1997 Rudina/1997 Rudina 11.jpg" class="card-img-top">
+                <div class="card-body">
+                    <h5 class="card-title">@product.Title</h5>
+                    <p class="card-text">@product.Description</p>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            Price: <b>@product.Price</b> Kn
+                        </div>
+                        <div>
+                            <a href="@Url.Action("ItemView", "Shop", new { id = product.Id })" class="btn btn-primary btn-sm">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     }
-    </tbody>
-</table>
+</div>

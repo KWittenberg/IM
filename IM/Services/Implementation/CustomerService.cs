@@ -45,4 +45,36 @@ public class CustomerService : ICustomerService
         var dbo = await db.ApplicationUser.ToListAsync();
         return dbo.Select(x => mapper.Map<ApplicationUserViewModel>(x)).ToList();
     }
+
+
+
+
+    public async Task UpdateUserPhone(string userId, string phone)
+    {
+        var user = await db.Users.FirstOrDefaultAsync(x => x.Id == userId);
+        user.PhoneNumber = phone;
+        await db.SaveChangesAsync();
+
+    }
+
+    public async Task<AddressViewModel> AddAdress(AddressBinding model)
+    {
+        var user = await db.Users
+            .Include(x => x.Address)
+            .FirstOrDefaultAsync(x => x.Id == model.ApplicationUserId);
+        if (user == null)
+        {
+            return null;
+        }
+
+        var dbo = mapper.Map<Address>(model);
+        user.Address.Add(dbo);
+        await db.SaveChangesAsync();
+        return mapper.Map<AddressViewModel>(dbo);
+    }
+
+
+
+
+
 }

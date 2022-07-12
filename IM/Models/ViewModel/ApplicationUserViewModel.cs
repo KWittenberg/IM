@@ -1,6 +1,8 @@
 ﻿namespace IM.Models.ViewModel;
 
-public class ApplicationUserViewModel : ApplicationUser
+public class ApplicationUserViewModel : ApplicationUserBase
 {
+    public string Id { get; set; }
+
     //public string ApplicationUserId { get; set; }
 }

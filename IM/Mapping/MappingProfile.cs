@@ -4,6 +4,12 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
+        // ApplicationUser
+        CreateMap<ApplicationUser, ApplicationUserViewModel>();
+
+        // Address
+        CreateMap<Address, AddressViewModel>();
+
         // Product
         CreateMap<ProductBinding, Product>();
         CreateMap<Product, ProductViewModel>();
@@ -20,10 +26,7 @@ public class MappingProfile : Profile
         // ShoppingCart
         CreateMap<ShoppingCart, ShoppingCartViewModel>();
 
-        // Address
-        CreateMap<Address, AddressViewModel>();
-
-        // ApplicationUser
-        CreateMap<ApplicationUser, ApplicationUserViewModel>();
+        // Order
+        CreateMap<Order, OrderViewModel>();
     }
 }

@@ -1,12 +1,22 @@
-﻿@model IM.Models.ViewModel.ProductViewModel
+﻿@inject UserManager<ApplicationUser> UserManager
+@inject IProductService productService
+@model IM.Models.ViewModel.ProductViewModel
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var user = await UserManager.GetUserAsync(User);
+    var shoppingCart = await productService.GetShoppingCartAsync(user.Id);
 }
 
 @using (Html.BeginForm())
 {
     <h1>Proizvod</h1>
     <input type="text" readonly hidden value="@Model.Id" name="ProductId">
+    
+    @if (shoppingCart != null)
+    {
+        <input type="text" readonly hidden value="@shoppingCart.Id" name="ShoppingCartId">
+    }
+    
     <div>
         <h4>Detalji</h4>
         <hr />

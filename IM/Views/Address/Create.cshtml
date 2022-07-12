@@ -1,4 +1,4 @@
-﻿@model IM.Models.Dbo.Address
+﻿@model IM.Models.ViewModel.AddressViewModel
 @inject ICustomerService customerService
 @{
     ViewData["Title"] = "New Address";
@@ -19,7 +19,7 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form method="post">
+                <form asp-action="Create">
                     <div class="card-body">
 
                         <div class="form-group">
@@ -35,7 +35,7 @@
                         <div class="form-group">
                             <label> &nbsp; &nbsp; Street</label>
                             <input asp-for="Street" type="text" class="form-control" placeholder=" street name">
-                            @*<span asp-validation-for="Street" class="text-danger"></span>*@
+                            <span asp-validation-for="Street" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label> &nbsp; &nbsp; City</label>

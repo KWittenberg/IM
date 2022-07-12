@@ -19,6 +19,12 @@ public class ShopController : Controller
         return View(productService.GetProductsAsync().Result);
     }
 
+    public IActionResult ListView()
+    {
+        return View(productService.GetProductsAsync().Result);
+    }
+    
+
     [Authorize]
     public async Task<IActionResult> ItemView(int id)
     {
@@ -37,10 +43,19 @@ public class ShopController : Controller
         return RedirectToAction("Index");
     }
 
+
     [Authorize]
     public async Task<IActionResult> ShoppingCart()
     {
         var shoppingCart = await productService.GetShoppingCartAsync(userManager.GetUserId(User));
         return View(shoppingCart);
+    }
+    
+    [Authorize]
+    [HttpPost]
+    public async Task<IActionResult> ShoppingCart(OrderBinding model)
+    {
+        var order = await productService.AddOrder(model);
+        return RedirectToAction("Index");
     }
 }

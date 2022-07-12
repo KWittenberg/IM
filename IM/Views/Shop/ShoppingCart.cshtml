@@ -9,14 +9,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var user = await UserManager.GetUserAsync(User);
     var address = await customerService.GetAddress(user.Id);
+    decimal totalPrice = Model.GetTotalPrice();
+    decimal totalPriceWithVat = Model.GetTotalPriceWithVAT();
     int counter = 1;
 }
 
+<br/>
+<br/>
+
 <div class="container">
     <div class="card">
-        <div class="card-header">
-            Košarica
-            <strong>@Model.Id-@Model.Created.ToString("dd-MM-yyyy")</strong>
+        <div class="card-header">Cart <strong>@Model.Id-@Model.Created.ToString("dd-MM-yyyy")</strong>
             <span class="float-right"> <strong>Status:</strong> @Model.ShoppingCartStatus.ToString()</span>
 
         </div>
@@ -53,7 +56,6 @@
                                 <td class="center">@counter</td>
                                 <td class="left strong">@item.Product.Title</td>
                                 <td class="left">@item.Product.Description</td>
-
                                 <td class="right">@item.Product.ProductCategory.Title</td>
                                 <td class="center">@item.Quantity</td>
                                 <td class="right">@item.Price</td>
@@ -65,42 +67,45 @@
                 </table>
             </div>
 
-            <div class="row">
-                <div class="col-lg-4 col-sm-5">
-                </div>
-                <div class="col-lg-4 col-sm-5 ml-auto">
-                    <table class="table table-clear">
-                        <tbody>
-                            <tr>
-                                <td class="left">
-                                    <strong>Neto</strong>
-                                </td>
-                                <td class="right">@Model.ShoppingCartItems.Select(x=>x.Price).Sum()</td>
-                            </tr>
-                            <tr>
-                                <td class="left">
-                                    <strong>Discount (20%)</strong>
-                                </td>
-                                <td class="right">0</td>
-                            </tr>
-                            <tr>
-                                <td class="left">
-                                    <strong>VAT (10%)</strong>
-                                </td>
-                                <td class="right">$679,76</td>
-                            </tr>
-                            <tr>
-                                <td class="left">
-                                    <strong>Total</strong>
-                                </td>
-                                <td class="right">
-                                    <strong>$7.477,36</strong>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="col-lg-4 col-sm-5 ml-auto">
+                <table class="table table-clear">
+                    <tbody>
+                    <tr>
+                        <td class="left">
+                            <strong>Neto</strong>
+                        </td>
+                        <td class="right">@string.Format("{0:C}",totalPrice)</td>
+                    </tr>
+                    <tr>
+                        <td class="left">
+                            <strong>Discount (20%)</strong>
+                        </td>
+                        <td class="right">0</td>
+                    </tr>
+                    <tr>
+                        <td class="left">
+                            <strong>VAT (10%)</strong>
+                        </td>
+                        <td class="right">@string.Format("{0:C}",(totalPriceWithVat-totalPrice))</td>
+                    </tr>
+                    <tr>
+                        <td class="left">
+                            <strong>Total</strong>
+                        </td>
+                        <td class="right">
+                            <strong>@string.Format("{0:C}",totalPriceWithVat)</strong>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
             </div>
+
+            @using (Html.BeginForm())
+            {
+                <input type="text" name="ShoppingCartId" value="@Model.Id" hidden>
+                <input type="submit" class="btn btn-success" value="Kupi">
+            }
 
         </div>
     </div>

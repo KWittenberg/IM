@@ -1,7 +1,8 @@
 ﻿namespace IM.Models.Dbo;
 
-public class Address : AddressBase, IEntityBase
+public class Order : OrderBase, IEntityBase
 {
+    public ShoppingCart ShoppingCart { get; set; }
     public int Id { get; set; }
     public DateTime Created { get; set; }
 }
