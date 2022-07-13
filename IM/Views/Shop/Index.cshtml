@@ -24,7 +24,7 @@
                 <div class="card-footer">
                     <div class="d-flex justify-content-between">
                         <div>
-                            Price: <b>@product.Price</b> Kn
+                            Price: <b>@string.Format("{0:C}",product.Price)</b>
                         </div>
                         <div>
                             <a href="@Url.Action("ItemView", "Shop", new { id = product.Id })" class="btn btn-primary btn-sm">Buy Now</a>

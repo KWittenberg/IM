@@ -4,11 +4,13 @@ public class ProductService : IProductService
 {
     private readonly ApplicationDbContext db;
     private readonly IMapper mapper;
+    private readonly AppConfig appConfig;
 
-    public ProductService(ApplicationDbContext db, IMapper mapper)
+    public ProductService(ApplicationDbContext db, IMapper mapper, IOptions<AppConfig> appConfig)
     {
         this.db = db;
         this.mapper = mapper;
+        this.appConfig = appConfig.Value;
     }
 
     /// <summary>
@@ -34,18 +36,15 @@ public class ProductService : IProductService
     /// <returns></returns>
     public async Task<ProductViewModel> UpdateProductAsync(ProductUpdateBinding model)
     {
+        var category = await db.ProductCategory.FirstOrDefaultAsync(x => x.Id == model.ProductCategoryId);
         var dbo = await db.Product.FindAsync(model.Id);
         mapper.Map(model, dbo);
+        dbo.ProductCategory = category;
         await db.SaveChangesAsync();
         return mapper.Map<ProductViewModel>(dbo);
     }
 
-
-
-
-
-
-
+    
 
 
 
@@ -339,5 +338,91 @@ public class ProductService : IProductService
         dbo.ShoppingCartItems.Add(shoppingCartItem);
         await db.SaveChangesAsync();
         return mapper.Map<ShoppingCartViewModel>(dbo);
+    }
+
+
+
+
+
+
+
+
+    /// <summary>
+    /// SuspendOrder by id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public async Task<OrderViewModel> SuspendOrder(int id)
+    {
+        var order = await db.Order
+            .Include(x => x.ShoppingCart)
+            .ThenInclude(x => x.ShoppingCartItems)
+            .ThenInclude(x => x.Product)
+            .FirstOrDefaultAsync(x => x.Id == id);
+        SuspendShoppingCart(order.ShoppingCart);
+        await db.SaveChangesAsync();
+        return mapper.Map<OrderViewModel>(order);
+    }
+
+
+
+
+
+
+    /// <summary>
+    /// UpdateShoppinCartStatus
+    /// Ako je shoppingcart u statusu active npr 2h.
+    /// Prebaciti status u suspended
+    /// Napraviti povrat robe na odg kolicinu
+    /// </summary>
+    /// <returns></returns>
+    public async Task UpdateShoppinCartStatus()
+    {
+        var shoppingCarts = await db.ShoppingCart
+            .Include(x => x.ShoppingCartItems)
+            .ThenInclude(x => x.Product)
+            .Where(x => x.ShoppingCartStatus == ShoppingCartStatus.Pending && x.Created < DateTime.Now.AddHours(appConfig.ShoppingCartOffset))
+            .ToListAsync();
+
+        if (!shoppingCarts.Any())
+        {
+            return;
+        }
+
+        SuspendShoppingCarts(shoppingCarts);
+
+        await db.SaveChangesAsync();
+
+    }
+
+    /// <summary>
+    /// SuspendShoppingCart
+    /// </summary>
+    /// <param name="shoppingCart"></param>
+    /// <returns></returns>
+    private static ShoppingCart SuspendShoppingCart(ShoppingCart shoppingCart)
+    {
+        shoppingCart.ShoppingCartStatus = ShoppingCartStatus.Suspended;
+        foreach (var cartItems in shoppingCart.ShoppingCartItems)
+        {
+            cartItems.Product.Quantity += cartItems.Quantity;
+        }
+
+        return shoppingCart;
+    }
+
+    /// <summary>
+    /// SuspendShoppingCarts
+    /// </summary>
+    /// <param name="shoppingCarts"></param>
+    /// <returns></returns>
+    private List<ShoppingCart> SuspendShoppingCarts(List<ShoppingCart> shoppingCarts)
+    {
+        foreach (var shoppingCart in shoppingCarts)
+        {
+            SuspendShoppingCart(shoppingCart);
+        }
+
+        return shoppingCarts;
     }
 }

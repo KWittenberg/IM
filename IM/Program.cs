@@ -12,6 +12,9 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddControllersWithViews();
 
+// Add Startup for UpdateShoppinCartStatus
+builder.Services.Configure<AppConfig>(builder.Configuration);
+
 // Add IdentityService
 builder.Services.AddSingleton<IIdentityService, IdentityService>();
 // Add ProductService

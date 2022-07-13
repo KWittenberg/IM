@@ -4,10 +4,11 @@
 public class AdminController : Controller
 {
     private readonly IProductService productService;
-
-    public AdminController(IProductService productService)
+    private readonly IMapper mapper;
+    public AdminController(IProductService productService, IMapper mapper)
     {
         this.productService = productService;
+        this.mapper = mapper;
     }
 
 
@@ -55,6 +56,7 @@ public class AdminController : Controller
     public async Task<IActionResult> EditProduct(int id)
     {
         var product = await productService.GetProductAsync(id);
+        var model = mapper.Map<ProductUpdateBinding>(product);
         return View(product);
     }
     
@@ -116,5 +118,17 @@ public class AdminController : Controller
     {
         var orders = await productService.GetOrdersAsync();
         return View(orders);
+    }
+
+    /// <summary>
+    /// SuspendOrder
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [HttpGet]
+    public async Task<IActionResult> SuspendOrder(int id)
+    {
+        var order = await productService.SuspendOrder(id);
+        return RedirectToAction("Orders");
     }
 }

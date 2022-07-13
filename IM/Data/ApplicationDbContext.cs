@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using IM.Models.ViewModel;
-namespace IM.Data;
+﻿namespace IM.Data;
 
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 {

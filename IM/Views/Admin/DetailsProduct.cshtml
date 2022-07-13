@@ -3,8 +3,8 @@
     ViewData["Title"] = "DetailsProduct";
 }
 
-<br/>
-<br/>
+<br />
+<br />
 
 <!-- Main content -->
 <div class="container">
@@ -14,76 +14,46 @@
         <div class="card card-solid">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-12 col-sm-6">
 
+                    <div class="col-12 col-sm-6">
                         <div class="col-12">
-                            <img src="/img/1997 Rudina/1997 Rudina 11.jpg" class="product-image" width="500px">
+                            <img src="/img/1997 Rudina/1997 Rudina 11.jpg" class="img-fluid" alt="Product Image">
                         </div>
-                        
                     </div>
-                    <div class="col-12 col-sm-6">
-                        <div class="container-fluid">
-                            <div class="filter-control">
-                                <div class="section-title">
-                                    <h2>@Model.Title</h2>
-                                </div>
-                            </div>
-                        </div>
 
-                        @*@foreach (var item in Model.ProductCategory.Title)
-                        {
-                            <a class="text-center" asp-controller="Author" asp-action="Details" asp-route-id="@item.AuthorId"><h4>@item.Author.Ime @item.Author.Prezime</h4></a>
-                        }*@
-                        <h4>@Model.ProductCategory.Title</h4>
+                    <div class="col-11 col-sm-6">
+
+                        <br />
+                        <br />
+                        <h1 align="center">@Model.Title</h1>
+                        <h5 align="center">Tomisalv Wittenberg</h5>
                         <hr />
                         <p>@Model.Description</p>
                         <hr />
-
-                        <div class="bg-gray py-2 px-3 mt-4">
-                            <h2 class="mb-0">@Model.Price Kn <sub><s> @Model.Price Kn </s></sub></h2>
-                        </div>
-
-                        <div class="mt-4">
-                            <div class="btn btn-primary btn-lg btn-flat"><a asp-route-id="@Model.Id" asp-controller="Orders" asp-action="AddItemToShoppingCart"><i class="fas fa-cart-plus fa-lg mr-2"></i>Add to Cart</a></div>
-
-                            <div class="btn btn-default btn-lg btn-flat">
-                                <i class="fas fa-heart fa-lg mr-2"></i>
-                                Add to Wishlist
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <p align="left">Id: <b>@Model.Id</b></p>
+                                <p align="left">Category: <b>@Model.ProductCategory.Title</b></p>
+                                <p align="left">Quantity: <b>@Model.Quantity</b></p>
+                                <p align="left">Price: <b>@Model.Price</b></p>
+                                <p align="left">Created: <b>Model.Created</b></p>
                             </div>
                         </div>
-
-                        <div class="mt-4 product-share">
-                            <a href="#" class="text-gray">
-                                <i class="fab fa-facebook-square fa-2x"></i>
-                            </a>
-                            <a href="#" class="text-gray">
-                                <i class="fab fa-twitter-square fa-2x"></i>
-                            </a>
-                            <a href="#" class="text-gray">
-                                <i class="fas fa-envelope-square fa-2x"></i>
-                            </a>
-                            <a href="#" class="text-gray">
-                                <i class="fas fa-rss-square fa-2x"></i>
-                            </a>
+                        <br />
+                        <br />
+                        <div class="d-grid gap-2">
+                            <div class="btn btn-default btn-lg btn-flat"><a asp-controller="Admin" asp-action="ProductAdministration">Back</a></div>
                         </div>
-
                     </div>
                 </div>
                 <br />
                 <br />
-
-
                 <div class="row mt-4">
                     <nav class="w-100">
                         <div class="nav nav-tabs justify-content-center" id="product-tab" role="tablist">
                             <a class="nav-item nav-link active" id="product-desc-tab" data-toggle="tab" href="#product-description" role="tab" aria-controls="product-desc" aria-selected="true">DESCRIPTION</a>
                             <a class="nav-item nav-link" id="product-comments-tab" data-toggle="tab" href="#product-additional-information" role="tab" aria-controls="product-comments" aria-selected="false">ADDITIONAL INFORMATION</a>
-                            <a class="nav-item nav-link" id="product-author-tab" data-toggle="tab" href="#product-author" role="tab" aria-controls="product-author" aria-selected="false">
-                                @*@foreach (var item in Model.AuthorsBooks)
-                                {
-                                    @item.Author.Ime @item.Author.Prezime
-                                }*@
-                            </a>
+                            <a class="nav-item nav-link" id="product-author-tab" data-toggle="tab" href="#product-author" role="tab" aria-controls="product-author" aria-selected="false">Tomisalv Wittenberg</a>
                         </div>
                     </nav>
                     <div class="tab-content p-3" id="nav-tabContent">
@@ -100,16 +70,16 @@
                             <div class="container-sm text-center" style="max-width: 500px;">
                                 <table class="table">
                                     <tbody>
-                                        @*<tr><th scope="row">Kategorija</th><td>@Model.BookCategory</td></tr>
-                                        <tr><th scope="row">Uvez</th><td>@Model.BookBinding</td></tr>
-                                        <tr><th scope="row">Nakladnik</th><td>@Model.Nakladnik</td></tr>
-                                        <tr><th scope="row">ISBN</th><td>@Model.Isbn</td></tr>
-                                        <tr><th scope="row">Godina izdanja</th><td>@Model.GodinaIzdanja</td></tr>
-                                        <tr><th scope="row">Broj stranica</th><td>@Model.BrojStranica</td></tr>
-                                        <tr><th scope="row">Širina</th><td>@Model.Sirina</td></tr>
-                                        <tr><th scope="row">Visina</th><td>@Model.Visina</td></tr>
-                                        <tr><th scope="row">Debljina</th><td>@Model.Debljina</td></tr>
-                                        <tr><th scope="row">Težina</th><td>@Model.Tezina</td></tr>*@
+                                        <tr><th scope="row">Kategorija</th><td>Model.BookCategory</td></tr>
+                                        <tr><th scope="row">Uvez</th><td>Model.BookBinding</td></tr>
+                                        <tr><th scope="row">Nakladnik</th><td>Model.Nakladnik</td></tr>
+                                        <tr><th scope="row">ISBN</th><td>Model.Isbn</td></tr>
+                                        <tr><th scope="row">Godina izdanja</th><td>Model.GodinaIzdanja</td></tr>
+                                        <tr><th scope="row">Broj stranica</th><td>Model.BrojStranica</td></tr>
+                                        <tr><th scope="row">Širina</th><td>Model.Sirina</td></tr>
+                                        <tr><th scope="row">Visina</th><td>Model.Visina</td></tr>
+                                        <tr><th scope="row">Debljina</th><td>Model.Debljina</td></tr>
+                                        <tr><th scope="row">Težina</th><td>Model.Tezina</td></tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -120,7 +90,7 @@
                             <br />
                             @*@foreach (var item in Model.AuthorsBooks)
                             {
-                                @item.Author.Opis
+                            @item.Author.Opis
                             }*@
                             <br />
                             <br />

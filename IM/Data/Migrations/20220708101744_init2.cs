@@ -50,7 +50,7 @@ namespace IM.Migrations
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     ShoppingCartId = table.Column<int>(type: "int", nullable: true),
-                    Quantity = table.Column<decimal>(type: "decimal(9,2)", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(9,2)", nullable: false)
                 },
                 constraints: table =>
@@ -126,7 +126,7 @@ namespace IM.Migrations
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     Created = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(9,2)", nullable: false),
-                    Quantity = table.Column<decimal>(type: "decimal(9,2)", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
                     ShoppingChartId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>

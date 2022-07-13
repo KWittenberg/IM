@@ -1,5 +1,6 @@
 ﻿@using IM.Services.Interface;
-@model IM.Models.Binding.ProductBinding
+@model IM.Models.ViewModel.ProductViewModel
+@*@model IM.Models.Binding.ProductBinding*@
 @inject IProductService productService
 @{
     var productCategory = await productService.GetProductCategorysAsync();

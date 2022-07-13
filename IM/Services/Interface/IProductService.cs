@@ -23,4 +23,8 @@ public interface IProductService
     Task<OrderViewModel> GetOrderAsync(int id);
     Task<List<OrderViewModel>> GetOrdersAsync();
     Task<OrderViewModel> AddOrder(OrderBinding model);
+    Task<OrderViewModel> SuspendOrder(int id);
+
+
+    Task UpdateShoppinCartStatus();
 }

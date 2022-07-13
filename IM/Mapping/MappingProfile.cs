@@ -8,17 +8,20 @@ public class MappingProfile : Profile
         CreateMap<ApplicationUser, ApplicationUserViewModel>();
 
         // Address
+        CreateMap<AddressBinding, Address>();
         CreateMap<Address, AddressViewModel>();
 
         // Product
         CreateMap<ProductBinding, Product>();
+        CreateMap<ProductUpdateBinding, Product>();
         CreateMap<Product, ProductViewModel>();
-
+        CreateMap<ProductViewModel, ProductUpdateBinding>();
+        
         // ProductCategory
         CreateMap<ProductCategoryBinding, ProductCategory>();
-        CreateMap<ProductCategory, ProductCategoryViewModel>();
         CreateMap<ProductCategoryUpdateBinding, ProductCategory>();
-
+        CreateMap<ProductCategory, ProductCategoryViewModel>();
+        
         // ShoppingCartItem
         CreateMap<ShoppingCartItemBinding, ShoppingCartItem>();
         CreateMap<ShoppingCartItem, ShoppingCartItemViewModel>();
