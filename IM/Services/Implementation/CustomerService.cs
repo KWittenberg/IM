@@ -11,6 +11,18 @@ public class CustomerService : ICustomerService
         this.mapper = mapper;
     }
 
+
+    /// <summary>
+    /// Get Address by Int
+    /// </summary>
+    /// <param name="Id"></param>
+    /// <returns></returns>
+    public async Task<AddressViewModel> GetAddressInt(int id)
+    {
+        var address = await db.Address.FindAsync(id);
+        return mapper.Map<AddressViewModel>(address);
+    }
+
     /// <summary>
     /// Get Address
     /// </summary>
@@ -22,8 +34,53 @@ public class CustomerService : ICustomerService
         return mapper.Map<AddressViewModel>(address);
     }
 
+    /// <summary>
+    /// Add Address
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    public async Task<AddressViewModel> AddAddressAsync(AddressBinding model)
+    {
+        var user = await db.Users.Include(x => x.Address).FirstOrDefaultAsync(x => x.Id == model.ApplicationUserId);
+        if (user == null) { return null; }
+        var dbo = mapper.Map<Address>(model);
+        user.Address.Add(dbo);
+        await db.SaveChangesAsync();
+        return mapper.Map<AddressViewModel>(dbo);
+    }
+    
+    /// <summary>
+    /// Update Address
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    public async Task<AddressViewModel> UpdateAddressAsync(AddressUpdateBinding model)
+    {
+        var user = await db.ApplicationUser.FirstOrDefaultAsync(x => x.Id == model.ApplicationUserId);
+        var dbo = await db.Address.FindAsync(model.Id);
+        mapper.Map(model, dbo);
+        dbo.ApplicationUser = user;
+        await db.SaveChangesAsync();
+        return mapper.Map<AddressViewModel>(dbo);
+    }
 
+    /// <summary>
+    /// Delete Address
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    public async Task<AddressViewModel> DeleteAddressAsync(AddressUpdateBinding model)
+    {
+        var user = await db.ApplicationUser.FirstOrDefaultAsync(x => x.Id == model.ApplicationUserId);
+        var dbo = await db.Address.FindAsync(model.Id);
+        mapper.Map(model, dbo);
+        dbo.ApplicationUser = user;
+        db.Address.Remove(dbo);
+        await db.SaveChangesAsync();
+        return mapper.Map<AddressViewModel>(dbo);
+    }
 
+    
 
     /// <summary>
     /// Get ApplicationUser
@@ -54,27 +111,5 @@ public class CustomerService : ICustomerService
         var user = await db.Users.FirstOrDefaultAsync(x => x.Id == userId);
         user.PhoneNumber = phone;
         await db.SaveChangesAsync();
-
     }
-
-    public async Task<AddressViewModel> AddAdress(AddressBinding model)
-    {
-        var user = await db.Users
-            .Include(x => x.Address)
-            .FirstOrDefaultAsync(x => x.Id == model.ApplicationUserId);
-        if (user == null)
-        {
-            return null;
-        }
-
-        var dbo = mapper.Map<Address>(model);
-        user.Address.Add(dbo);
-        await db.SaveChangesAsync();
-        return mapper.Map<AddressViewModel>(dbo);
-    }
-
-
-
-
-
 }

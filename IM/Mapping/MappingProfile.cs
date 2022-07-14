@@ -9,7 +9,9 @@ public class MappingProfile : Profile
 
         // Address
         CreateMap<AddressBinding, Address>();
+        CreateMap<AddressUpdateBinding, Address>();
         CreateMap<Address, AddressViewModel>();
+        CreateMap<AddressViewModel, AddressUpdateBinding>();
 
         // Product
         CreateMap<ProductBinding, Product>();

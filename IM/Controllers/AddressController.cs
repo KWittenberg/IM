@@ -5,11 +5,13 @@ public class AddressController : Controller
 {
     private readonly ApplicationDbContext db;
     private readonly ICustomerService customerService;
+    private readonly IMapper mapper;
 
-    public AddressController(ApplicationDbContext db, ICustomerService customerService)
+    public AddressController(ApplicationDbContext db, ICustomerService customerService, IMapper mapper)
     {
         this.db = db;
         this.customerService = customerService;
+        this.mapper = mapper;
     }
 
     /// <summary>
@@ -44,110 +46,57 @@ public class AddressController : Controller
     /// Address/Create
     /// </summary>
     /// <returns></returns>
-    public IActionResult Create()
+    [HttpGet]
+    public async Task<IActionResult> Create()
     {
         return View();
     }
-
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(AddressViewModel addressViewModel)
+    public async Task<IActionResult> Create(AddressBinding addressBinding)
     {
-        if (ModelState.IsValid)
-        {
-            this.db.Add(addressViewModel);
-            await this.db.SaveChangesAsync();
-            TempData["success"] = "Address created successfully";
-            return RedirectToAction(nameof(Index));
-        }
-        return View(addressViewModel);
+        await customerService.AddAddressAsync(addressBinding);
+        TempData["success"] = "Address created successfully";
+        return RedirectToAction(nameof(Index));
     }
-
 
     /// <summary>
     /// Address/Edit
     /// </summary>
-    /// <param name="id"></param>
     /// <returns></returns>
-    public async Task<IActionResult> Edit(int? id)
+    [HttpGet]
+    public async Task<IActionResult> Edit(int id)
     {
-        if (id == null || this.db.Address == null) { return NotFound(); }
-
-        var address = await this.db.Address.FindAsync(id);
-
-        if (address == null) { return NotFound(); }
-
+        var address = await customerService.GetAddressInt(id);
+        var model = mapper.Map<AddressUpdateBinding>(address);
         return View(address);
     }
-
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, [Bind("Id,FistName,LastName,Street,City,PostCode,Country")] Address address)
+    public async Task<IActionResult> Edit(AddressUpdateBinding model)
     {
-        if (id != address.Id) { return NotFound(); }
-
-        if (ModelState.IsValid)
-        {
-            try
-            {
-                this.db.Update(address);
-                await this.db.SaveChangesAsync();
-                TempData["success"] = "Address update successfully";
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AddressExists(address.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return RedirectToAction(nameof(Index));
-        }
-        return View(address);
+        await customerService.UpdateAddressAsync(model);
+        TempData["success"] = "Address update successfully";
+        return RedirectToAction(nameof(Index));
     }
-
-
+    
     /// <summary>
     /// Address/Delete
     /// </summary>
-    /// <param name="id"></param>
     /// <returns></returns>
-    public async Task<IActionResult> Delete(int? id)
+    [HttpGet]
+    public async Task<IActionResult> Delete(int id)
     {
-        if (id == null || this.db.Address == null) { return NotFound(); }
-
-        var address = await this.db.Address.FirstOrDefaultAsync(m => m.Id == id);
-
-        if (address == null) { return NotFound(); }
-
+        var address = await customerService.GetAddressInt(id);
+        var model = mapper.Map<AddressUpdateBinding>(address);
         return View(address);
     }
-
-    [HttpPost, ActionName("Delete")]
+    [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> DeleteConfirmed(int id)
+    public async Task<IActionResult> Delete(AddressUpdateBinding model)
     {
-        if (this.db.Address == null)
-        {
-            return Problem("Entity set 'ApplicationDbContext.Address'  is null.");
-        }
-        var address = await this.db.Address.FindAsync(id);
-        if (address != null)
-        {
-            this.db.Address.Remove(address);
-        }
-
-        await this.db.SaveChangesAsync();
+        await customerService.DeleteAddressAsync(model);
         TempData["success"] = "Address deleted successfully";
         return RedirectToAction(nameof(Index));
-    }
-
-    private bool AddressExists(int id)
-    {
-        return (this.db.Address?.Any(e => e.Id == id)).GetValueOrDefault();
     }
 }

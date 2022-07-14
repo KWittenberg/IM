@@ -1,5 +1,11 @@
 ﻿@using Microsoft.AspNetCore.Mvc
 @using Microsoft.AspNetCore.Mvc.TagHelpers
+@inject UserManager<ApplicationUser> UserManager
+@{
+    var user = await UserManager.GetUserAsync(User);
+
+}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,6 +27,7 @@
 
     <!-- Toast -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+    @RenderSection("aditionalccsSection", required: false)
 </head>
 
 
@@ -37,21 +44,23 @@
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item"><a class="nav-link active" asp-controller="Home" asp-action="Index">Home<span class="visually-hidden">(current)</span></a></li>
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-controller="ProductCategories" asp-action="Index">Category</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" asp-controller="Admin" asp-action="ProductAdministration">Product</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" asp-controller="User" asp-action="Index">User</a>
-                                <a class="dropdown-item" asp-controller="Roles" asp-action="Index">Role</a>
-                                <a class="dropdown-item" asp-controller="Address" asp-action="Index">Address</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" asp-controller="Admin" asp-action="Orders">Orders</a>
-                            </div>
-                        </li>
-
+                        @if (user != null)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-controller="ProductCategories" asp-action="Index">Category</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" asp-controller="Admin" asp-action="ProductAdministration">Product</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" asp-controller="User" asp-action="Index">User</a>
+                                    <a class="dropdown-item" asp-controller="Roles" asp-action="Index">Role</a>
+                                    <a class="dropdown-item" asp-controller="Address" asp-action="Index">Address</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" asp-controller="Admin" asp-action="Orders">Orders</a>
+                                </div>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Shop" asp-action="Index">Shop</a>
                         </li>
@@ -63,8 +72,6 @@
 
                             </div>
                         </li>
-
-
 
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="About">About</a>
@@ -94,13 +101,19 @@
         </main>
     </div>
 
+
+
+
+
+    @RenderSection("modalSection", required: false);
+
     <!-- foother
-        <footer class="border-top footer text-muted">
-            <div class="container">
-                &copy; 2022 - BoltaShop - <a asp-area="" asp-controller="Home" asp-action="About">About</a>
-            </div>
-        </footer>
-    -->
+            <footer class="border-top footer text-muted">
+                <div class="container">
+                    &copy; 2022 - BoltaShop - <a asp-area="" asp-controller="Home" asp-action="About">About</a>
+                </div>
+            </footer>
+        -->
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <!-- JavaScript Bundle with Popper -->

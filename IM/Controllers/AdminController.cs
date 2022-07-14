@@ -11,7 +11,10 @@ public class AdminController : Controller
         this.mapper = mapper;
     }
 
-
+    /// <summary>
+    /// ProductAdministration
+    /// </summary>
+    /// <returns></returns>
     [HttpGet]
     public async Task<IActionResult> ProductAdministration()
     {
@@ -19,7 +22,12 @@ public class AdminController : Controller
         return View(products);
     }
 
-
+    /// <summary>
+    /// Details Product
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [HttpGet]
     public async Task<IActionResult> DetailsProduct(int id)
     {
         var product = await productService.GetProductAsync(id);
@@ -38,15 +46,14 @@ public class AdminController : Controller
     {
         return View();
     }
-
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> AddProduct(ProductBinding model)
     {
         await productService.AddProductAsync(model);
         TempData["success"] = "Product created successfully";
         return RedirectToAction("ProductAdministration");
     }
-
 
     /// <summary>
     /// Edit Product
@@ -59,21 +66,36 @@ public class AdminController : Controller
         var model = mapper.Map<ProductUpdateBinding>(product);
         return View(product);
     }
-    
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> EditProduct(ProductUpdateBinding model)
     {
         await productService.UpdateProductAsync(model);
         TempData["success"] = "Product update successfully";
         return RedirectToAction("ProductAdministration");
     }
+    
+    /// <summary>
+    /// Delete Product
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    public async Task<IActionResult> DeleteProduct(int id)
+    {
+        var product = await productService.GetProductAsync(id);
+        var model = mapper.Map<ProductUpdateBinding>(product);
+        return View(product);
+    }
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteProduct(ProductUpdateBinding model)
+    {
+        await productService.DeleteProductAsync(model);
+        TempData["success"] = "Product deleted successfully";
+        return RedirectToAction("ProductAdministration");
+    }
 
-
-
-
-
-
-
+    
 
     /// <summary>
     /// AddProductCategory
@@ -84,7 +106,6 @@ public class AdminController : Controller
     {
         return View();
     }
-
     [HttpPost]
     public async Task<IActionResult> AddProductCategory(ProductCategoryBinding model)
     {
@@ -93,8 +114,7 @@ public class AdminController : Controller
         return RedirectToAction("ProductAdministration");
     }
 
-
-
+    
 
 
     /// <summary>

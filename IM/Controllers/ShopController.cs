@@ -1,6 +1,5 @@
 ﻿namespace IM.Controllers;
 
-//[Authorize (Roles = Roles.Admin)]
 public class ShopController : Controller
 {
     private readonly ILogger<HomeController> _logger;
@@ -14,48 +13,90 @@ public class ShopController : Controller
         this.userManager = userManager;
     }
 
+    [HttpGet]
     public IActionResult Index()
     {
         return View(productService.GetProductsAsync().Result);
     }
 
+    /// <summary>
+    /// ListView
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
     public IActionResult ListView()
     {
         return View(productService.GetProductsAsync().Result);
     }
-    
 
+    /// <summary>
+    /// ItemView
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     [Authorize]
+    [HttpGet]
     public async Task<IActionResult> ItemView(int id)
     {
         var product = await productService.GetProductAsync(id);
-
         return View(product);
     }
-
     [Authorize]
     [HttpPost]
     public async Task<IActionResult> ItemView(ShoppingCartBinding model)
     {
         model.UserId = userManager.GetUserId(User);
         var product = await productService.AddShoppingCartAsync(model);
-
         return RedirectToAction("Index");
     }
 
 
+
+
+
+    /// <summary>
+    /// ShoppingCart
+    /// </summary>
+    /// <returns></returns>
     [Authorize]
+    [HttpGet]
     public async Task<IActionResult> ShoppingCart()
     {
         var shoppingCart = await productService.GetShoppingCartAsync(userManager.GetUserId(User));
         return View(shoppingCart);
     }
-    
     [Authorize]
     [HttpPost]
     public async Task<IActionResult> ShoppingCart(OrderBinding model)
     {
         var order = await productService.AddOrder(model);
         return RedirectToAction("Index");
+    }
+
+    
+    /// <summary>
+    /// SuspendShoppingCartItem
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [Authorize]
+    [HttpGet]
+    public async Task<IActionResult> SuspendShoppingCartItem(int id)
+    {
+        await productService.SuspendShoppingCartItem(id);
+        return RedirectToAction("ShoppingCart");
+    }
+
+    /// <summary>
+    /// SuspendShoppingCart
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [Authorize]
+    [HttpGet]
+    public async Task<IActionResult> SuspendShoppingCart(int id)
+    {
+        var shoppingCart = await productService.SuspendShoppingCart(id);
+        return RedirectToAction("ShoppingCart");
     }
 }

@@ -36,7 +36,7 @@
                         <div class="btn-group btn-group-sm">
                             <a asp-controller="Admin" asp-action="DetailsProduct" asp-route-id="@item.Id" class="btn btn-secondary btn-sm"><i class="bi bi-eye"></i></a>
                             <a asp-controller="Admin" asp-action="EditProduct" asp-route-id="@item.Id" class="btn btn-secondary btn-sm"><i class="bi bi-pencil-square"></i></a>
-                            <a asp-controller="Address" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-secondary btn-sm"><i class="bi bi-trash"></i></a>
+                            <a asp-controller="Admin" asp-action="DeleteProduct" asp-route-id="@item.Id" class="btn btn-secondary btn-sm"><i class="bi bi-trash"></i></a>
                         </div>
                     </td>
                 </tr>
@@ -47,9 +47,6 @@
     </div>
 </div>
             
-@await Html.PartialAsync("_CreateItem", "Admin")
-
-
-
+@*@await Html.PartialAsync("_CreateItem", "Admin")
 <a class="btn btn-primary" href="@Url.Action("AddProduct", "Admin")">Add product</a>
-<a class="btn btn-primary" href="@Url.Action("AddProductCategory", "Admin")">Dodaj novu kategoriju</a>
+<a class="btn btn-primary" href="@Url.Action("AddProductCategory", "Admin")">Dodaj novu kategoriju</a>*@

@@ -6,10 +6,15 @@ public class ShoppingCartViewModel : ShoppingCartBase
     public List<ShoppingCartItemViewModel> ShoppingCartItems { get; set; }
 
     public ApplicationUserViewModel ApplicationUser { get; set; }
+    
     public decimal GetTotalPrice()
     {
         decimal totalPrice = 0;
 
+        if (ShoppingCartItems == null)
+        {
+            return default;
+        }
         if (ShoppingCartItems.Any())
         {
             foreach (var item in ShoppingCartItems)
@@ -18,13 +23,16 @@ public class ShoppingCartViewModel : ShoppingCartBase
             }
 
         }
-
         return totalPrice;
     }
 
     public decimal GetTotalPriceWithVAT()
     {
         decimal totalPrice = GetTotalPrice();
+        if (totalPrice == default)
+        {
+            return default;
+        }
         totalPrice = totalPrice * 1.25M;
         return totalPrice;
     }

@@ -1,8 +1,9 @@
-﻿@model IM.Models.Dbo.Address
+﻿@using IM.Services.Interface;
+@model IM.Models.ViewModel.AddressViewModel
 @inject ICustomerService customerService
 @{
     ViewData["Title"] = "Edit Address";
-    var user = await customerService.GetApplicationUsers();
+    var users = await customerService.GetApplicationUsers();
 }
 
 <br />
@@ -19,37 +20,48 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form method="post" asp-action="Edit">
+                <form asp-action="Edit">
                     <div class="card-body">
-
                         <div class="form-group">
-                            <label> &nbsp; &nbsp; User</label>
-                            <input asp-for="ApplicationUser.Id" type="text" class="form-control">
+                            <label asp-for="ApplicationUserId" class="control-label">&nbsp; &nbsp; Choose a User</label>
+                            <select name="ApplicationUserId" class="form-select" aria-label="Default select example">
+                                @foreach (var item in users)
+                                {
+                                    if (item.Id == Model.ApplicationUserId)
+                                    {
+                                        <option selected value="@item.Id">@item.FirstName @item.LastName</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.Id">@item.FirstName @item.LastName</option>
+                                    }
+                                }
+                            </select>
                         </div>
                         <div class="form-group">
                             <label> &nbsp; &nbsp; Street</label>
-                            <input asp-for="Street" type="text" class="form-control" placeholder=" street name">
+                            <input asp-for="Street" type="text" class="form-control" placeholder=" ...enter the street and house number">
                             <span asp-validation-for="Street" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label> &nbsp; &nbsp; City</label>
-                            <input asp-for="City" type="text" class="form-control" placeholder=" city name">
+                            <input asp-for="City" type="text" class="form-control" placeholder=" ...enter the city">
                             <span asp-validation-for="City" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label> &nbsp; &nbsp; PostCode</label>
-                            <input asp-for="PostCode" type="text" class="form-control" placeholder=" post number">
+                            <input asp-for="PostCode" type="text" class="form-control" placeholder=" ...enter the postal code">
                             <span asp-validation-for="PostCode" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label> &nbsp; &nbsp; Country</label>
-                            <input asp-for="Country" type="text" class="form-control" placeholder=" country name">
+                            <input asp-for="Country" type="text" class="form-control" placeholder=" ...enter the country">
                             <span asp-validation-for="Country" class="text-danger"></span>
                         </div>
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer" align="right">
-                        <button type="submit" class="btn btn-primary">Update</button><a asp-controller="Address" asp-action="Index" class="btn btn-secondary">Back</a>
+                        <button type="submit" class="btn btn-primary">Edit</button><a asp-controller="Address" asp-action="Index" class="btn btn-secondary">Back</a>
                     </div>
                 </form>
             </div>

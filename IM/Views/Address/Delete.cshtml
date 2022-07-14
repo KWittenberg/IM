@@ -1,45 +1,76 @@
-﻿@model IM.Models.Dbo.Address
-
+﻿@using IM.Services.Interface;
+@model IM.Models.ViewModel.AddressViewModel
+@inject ICustomerService customerService
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Delete Address";
+    var users = await customerService.GetApplicationUsers();
 }
 
-<h1>Delete</h1>
+<br />
+<br />
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Address</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Street)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Street)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.City)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.City)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PostCode)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PostCode)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Country)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Country)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+<div class="container-fluid">
+    <div class="row">
+        <!-- left column -->
+        <div class="col-md-6 offset-1">
+            <!-- general form elements -->
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Delete Address</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form asp-action="Delete">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label asp-for="ApplicationUserId" class="control-label">&nbsp; &nbsp; Choose a User</label>
+                            <select name="ApplicationUserId" disabled class="form-select" aria-label="Default select example">
+                                @foreach (var item in users)
+                                {
+                                    if (item.Id == Model.ApplicationUserId)
+                                    {
+                                        <option selected value="@item.Id">@item.FirstName @item.LastName</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.Id">@item.FirstName @item.LastName</option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label> &nbsp; &nbsp; Street</label>
+                            <input asp-for="Street" type="text" disabled class="form-control" placeholder=" ...enter the street and house number">
+                            <span asp-validation-for="Street" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label> &nbsp; &nbsp; City</label>
+                            <input asp-for="City" type="text" disabled class="form-control" placeholder=" ...enter the city">
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label> &nbsp; &nbsp; PostCode</label>
+                            <input asp-for="PostCode" type="text" disabled class="form-control" placeholder=" ...enter the postal code">
+                            <span asp-validation-for="PostCode" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label> &nbsp; &nbsp; Country</label>
+                            <input asp-for="Country" type="text" disabled class="form-control" placeholder=" ...enter the country">
+                            <span asp-validation-for="Country" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer" align="right">
+                        <button type="submit" class="btn btn-primary">Delete</button><a asp-controller="Address" asp-action="Index" class="btn btn-secondary">Back</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

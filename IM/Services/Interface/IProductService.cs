@@ -7,6 +7,7 @@ public interface IProductService
     Task<List<ProductViewModel>> GetProductsAsync();
     Task<ProductViewModel> AddProductAsync(ProductBinding model);
     Task<ProductViewModel> UpdateProductAsync(ProductUpdateBinding model);
+    Task<ProductViewModel> DeleteProductAsync(ProductUpdateBinding model);
 
     // ProductCategoryViewModel
     Task<ProductCategoryViewModel> GetProductCategoryAsync(int id);
@@ -18,7 +19,10 @@ public interface IProductService
     Task<ShoppingCartViewModel> GetShoppingCartAsync(string userId);
     Task<List<ShoppingCartViewModel>> GetShoppingCartsAsync(ShoppingCartStatus status);
     Task<ShoppingCartViewModel> AddShoppingCartAsync(ShoppingCartBinding model);
+    Task SuspendShoppingCartItem(int shoppingCartItemId);
+    Task<ShoppingCartViewModel> SuspendShoppingCart(int id);
 
+    
     // OrderViewModel
     Task<OrderViewModel> GetOrderAsync(int id);
     Task<List<OrderViewModel>> GetOrdersAsync();

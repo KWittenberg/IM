@@ -1,4 +1,4 @@
-﻿@model IM.Models.ViewModel.AddressViewModel
+﻿@model IM.Models.Binding.AddressBinding
 @inject ICustomerService customerService
 @{
     ViewData["Title"] = "New Address";
@@ -21,9 +21,9 @@
                 <!-- form start -->
                 <form asp-action="Create">
                     <div class="card-body">
-
                         <div class="form-group">
-                            <label> &nbsp; &nbsp; User</label>
+                            <label asp-for="ApplicationUserId" class="control-label">&nbsp; &nbsp; Choose a User</label>
+                            @*<label> &nbsp; &nbsp; User</label>*@
                             <select name="ApplicationUserId" class="form-select" aria-label="Default select example">
                                 @foreach (var item in users)
                                 {
@@ -31,25 +31,24 @@
                                 }
                             </select>
                         </div>
-                       
                         <div class="form-group">
                             <label> &nbsp; &nbsp; Street</label>
-                            <input asp-for="Street" type="text" class="form-control" placeholder=" street name">
+                            <input asp-for="Street" type="text" class="form-control" placeholder=" ...enter the street and house number">
                             <span asp-validation-for="Street" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label> &nbsp; &nbsp; City</label>
-                            <input asp-for="City" type="text" class="form-control" placeholder=" city name">
+                            <input asp-for="City" type="text" class="form-control" placeholder=" ...enter the city">
                             <span asp-validation-for="City" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label> &nbsp; &nbsp; PostCode</label>
-                            <input asp-for="PostCode" type="text" class="form-control" placeholder=" post number">
+                            <input asp-for="PostCode" type="text" class="form-control" placeholder=" ...enter the postal code">
                             <span asp-validation-for="PostCode" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label> &nbsp; &nbsp; Country</label>
-                            <input asp-for="Country" type="text" class="form-control" placeholder=" country name">
+                            <input asp-for="Country" type="text" class="form-control" placeholder=" ...enter the country">
                             <span asp-validation-for="Country" class="text-danger"></span>
                         </div>
                     </div>
@@ -63,8 +62,8 @@
     </div>
 </div>
 
-@*@section Scripts {
+@section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-    }*@
+    }

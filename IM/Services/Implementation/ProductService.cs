@@ -44,7 +44,21 @@ public class ProductService : IProductService
         return mapper.Map<ProductViewModel>(dbo);
     }
 
-    
+    /// <summary>
+    /// Delete Product
+    /// </summary>
+    /// <param name="model"></param>
+    /// <returns></returns>
+    public async Task<ProductViewModel> DeleteProductAsync(ProductUpdateBinding model)
+    {
+        var category = await db.ProductCategory.FirstOrDefaultAsync(x => x.Id == model.ProductCategoryId);
+        var dbo = await db.Product.FindAsync(model.Id);
+        mapper.Map(model, dbo);
+        dbo.ProductCategory = category;
+        db.Product.Remove(dbo);
+        await db.SaveChangesAsync();
+        return mapper.Map<ProductViewModel>(dbo);
+    }
 
 
 
@@ -206,11 +220,7 @@ public class ProductService : IProductService
             .ThenInclude(x => x.ProductCategory)
             .FirstOrDefaultAsync(x => x.ApplicationUser.Id == userId && x.ShoppingCartStatus == Models.ShoppingCartStatus.Pending);
 
-        if (shoppingCart == null)
-        {
-            return null;
-
-        }
+        if (shoppingCart == null) { return null; }
 
         return mapper.Map<ShoppingCartViewModel>(shoppingCart);
     }
@@ -238,7 +248,7 @@ public class ProductService : IProductService
     }
 
 
-    
+
     /// <summary>
     /// Get Order
     /// </summary>
@@ -256,7 +266,7 @@ public class ProductService : IProductService
 
         return mapper.Map<OrderViewModel>(order);
     }
-    
+
     /// <summary>
     /// Get Orders
     /// </summary>
@@ -300,7 +310,7 @@ public class ProductService : IProductService
         await db.SaveChangesAsync();
         return mapper.Map<OrderViewModel>(dbo);
     }
-    
+
 
 
     /// <summary>
@@ -310,14 +320,24 @@ public class ProductService : IProductService
     /// <returns></returns>
     private async Task<ShoppingCartViewModel> AddItemToShoppingCartAsync(ShoppingCartBinding model)
     {
-        var product = await db.Product.FindAsync(model.ProductId);
-        product.Quantity -= model.Quantity;
-        var user = await db.Users.FirstOrDefaultAsync(x => x.Id == model.UserId);
+        var dbo = await db.ShoppingCart.Include(x => x.ShoppingCartItems).ThenInclude(x => x.Product)
+            .FirstOrDefaultAsync(x => x.Id == model.ShoppingCartId.GetValueOrDefault());
 
-        if (product == null || user == null)
+        var product = await db.Product.FindAsync(model.ProductId);
+
+        product.Quantity -= model.Quantity;
+
+        var presentShoppingCartItem = dbo.ShoppingCartItems.FirstOrDefault(x => x.Product.Id == model.ProductId);
+        if (presentShoppingCartItem != null)
         {
-            return null;
+            presentShoppingCartItem.Quantity += model.Quantity;
+            await db.SaveChangesAsync();
+            return mapper.Map<ShoppingCartViewModel>(dbo);
         }
+
+        var user = await db.Users.FirstOrDefaultAsync(x => x.Id == model.UserId);
+        if (product == null || user == null) { return null; }
+
 
         var shoppingCartItem = new ShoppingCartItem
         {
@@ -326,14 +346,7 @@ public class ProductService : IProductService
             Quantity = model.Quantity
         };
 
-        var dbo = await db.ShoppingCart
-            .Include(x => x.ShoppingCartItems)
-            .FirstOrDefaultAsync(x => x.Id == model.ShoppingCartId.GetValueOrDefault());
-
-        if (dbo == null)
-        {
-            return null;
-        }
+        if (dbo == null) { return null; }
 
         dbo.ShoppingCartItems.Add(shoppingCartItem);
         await db.SaveChangesAsync();
@@ -424,5 +437,55 @@ public class ProductService : IProductService
         }
 
         return shoppingCarts;
+    }
+
+
+
+    /// <summary>
+    /// SuspendShoppingCartItem
+    /// </summary>
+    /// <param name="shoppingCartItemId"></param>
+    /// <returns></returns>
+    public async Task SuspendShoppingCartItem(int shoppingCartItemId)
+    {
+
+        var shoppingCartItem = await db.ShoppingCartItem.Include(x => x.ShoppingCart).ThenInclude(x => x.ShoppingCartItems)
+            .FirstOrDefaultAsync(x => x.Id == shoppingCartItemId);
+
+        if (shoppingCartItem == null) { return; }
+
+        if (shoppingCartItem.ShoppingCart.ShoppingCartItems.Count == 1)
+        {
+            await SuspendShoppingCart(shoppingCartItem.ShoppingCart.Id);
+            return;
+        }
+
+        try
+        {
+            shoppingCartItem.ShoppingCart.ShoppingCartItems.Remove(shoppingCartItem);
+            await db.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
+        return;
+    }
+
+    /// <summary>
+    /// SuspendShoppingCart
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public async Task<ShoppingCartViewModel> SuspendShoppingCart(int id)
+    {
+        var shoppingCart = await db.ShoppingCart.Include(x => x.ShoppingCartItems).ThenInclude(x => x.Product)
+            .FirstOrDefaultAsync(x => x.Id == id);
+
+        if (shoppingCart == null) { return null; }
+
+        SuspendShoppingCart(shoppingCart);
+        await db.SaveChangesAsync();
+        return mapper.Map<ShoppingCartViewModel>(shoppingCart);
     }
 }
