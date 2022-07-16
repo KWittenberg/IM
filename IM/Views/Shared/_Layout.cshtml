@@ -19,88 +19,101 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 
     <!-- CSS only -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/BootswatchSlate.css" asp-append-version="true" />
     @*<link rel="stylesheet" href="~/IM.styles.css" asp-append-version="true" />*@
-    
+
+    @*<link rel="stylesheet" href="~/css/bootstrap.min.css" type="text/css">*@
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/themify-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="~/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="~/css/style.css" type="text/css">
+
     <!-- Toast -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
-    
+
     @RenderSection("aditionalccsSection", required: false)
 </head>
 
 
 <body>
+    <partial name="_Header" />
+
+    <!-- OLD header -->
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index">BoltaShop</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+        @*<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container-fluid">
+        <a class="navbar-brand" asp-controller="Home" asp-action="Index">BoltaShop</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        </button>
 
-                <div class="collapse navbar-collapse" id="navbarColor01">
-                    <ul class="navbar-nav me-auto">
-                        <li class="nav-item"><a class="nav-link active" asp-controller="Home" asp-action="Index">Home<span class="visually-hidden">(current)</span></a></li>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link active" asp-controller="Home" asp-action="Index">Home<span class="visually-hidden">(current)</span></a></li>
 
-                        @if (user != null)
-                        {
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" asp-controller="ProductCategories" asp-action="Index">Category</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" asp-controller="Admin" asp-action="ProductAdministration">Product</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" asp-controller="User" asp-action="Index">User</a>
-                                    <a class="dropdown-item" asp-controller="ApplicationUser" asp-action="Index">ApplicationUser</a>
-                                    <a class="dropdown-item" asp-controller="Roles" asp-action="Index">Role</a>
-                                    <a class="dropdown-item" asp-controller="Address" asp-action="Index">Address</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" asp-controller="Admin" asp-action="Orders">Orders</a>
-                                </div>
-                            </li>
-                        }
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Shop" asp-action="Index">Shop</a>
-                        </li>
+        @if (user != null)
+        {
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
+        <div class="dropdown-menu">
+        <a class="dropdown-item" asp-controller="ProductCategories" asp-action="Index">Category</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" asp-controller="Admin" asp-action="ProductAdministration">Product</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" asp-controller="User" asp-action="Index">User</a>
+        <a class="dropdown-item" asp-controller="ApplicationUser" asp-action="Index">ApplicationUser</a>
+        <a class="dropdown-item" asp-controller="Roles" asp-action="Index">Role</a>
+        <a class="dropdown-item" asp-controller="Address" asp-action="Index">Address</a>
+        <div class="dropdown-divider"></div>
+        <a class="dropdown-item" asp-controller="Admin" asp-action="Orders">Orders</a>
+        </div>
+        </li>
+        }
+        <li class="nav-item">
+        <a class="nav-link" asp-controller="Shop" asp-action="Index">Shop</a>
+        </li>
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" asp-controller="Shop" asp-action="Index" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Shop</a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" asp-controller="Shop" asp-action="ListView">ListView</a>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" asp-controller="Shop" asp-action="Index" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Shop</a>
+        <div class="dropdown-menu">
+        <a class="dropdown-item" asp-controller="Shop" asp-action="ListView">ListView</a>
 
-                            </div>
-                        </li>
+        </div>
+        </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="About">About</a>
-                        </li>
-                    </ul>
+        <li class="nav-item">
+        <a class="nav-link" asp-controller="Home" asp-action="About">About</a>
+        </li>
+        </ul>
 
-                    <a class="nav-link" href="@Url.Action("ShoppingCart", "Shop")"><i class="fa-solid fa-cart-plus"></i> Cart</a>
+        <a class="nav-link" href="@Url.Action("ShoppingCart", "Shop")"><i class="fa-solid fa-cart-plus"></i> Cart</a>
 
-                    <partial name="_LoginPartial" />
-                    <form class="d-flex">
-                        <input class="form-control me-sm-2" type="text" placeholder="Search">
-                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                </div>
-            </div>
-        </nav>
+        <partial name="_LoginPartial" />
+        <form class="d-flex">
+        <input class="form-control me-sm-2" type="text" placeholder="Search">
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        </div>
+        </div>
+        </nav>*@
     </header>
 
 
-    <div class="container">
-        <main role="main" class="pb-3">
+    @* <div class="container">
+    <main role="main" class="pb-3">*@
 
-            <!-- Dodati za Toast -->
-            <partial name="_Notification" />
+    <!-- Dodati za Toast -->
+    <partial name="_Notification" />
 
-            @RenderBody()
-        </main>
-    </div>
+    @RenderBody()
+    @*    </main>
+    </div>*@
 
 
 
@@ -108,13 +121,24 @@
 
     @RenderSection("modalSection", required: false);
 
+
+
+
+
+
     <!-- foother
-            <footer class="border-top footer text-muted">
-                <div class="container">
-                    &copy; 2022 - BoltaShop - <a asp-area="" asp-controller="Home" asp-action="About">About</a>
-                </div>
-            </footer>
-        -->
+                <footer class="border-top footer text-muted">
+                    <div class="container">
+                        &copy; 2022 - BoltaShop - <a asp-area="" asp-controller="Home" asp-action="About">About</a>
+                    </div>
+                </footer>
+            -->
+
+
+
+    
+
+
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <!-- JavaScript Bundle with Popper -->
@@ -122,5 +146,22 @@
     @*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+
+
+
+
+
+    <!-- Js Plugins -->
+    <script src="~/js/jquery-3.3.1.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/jquery-ui.min.js"></script>
+    <script src="~/js/jquery.countdown.min.js"></script>
+    <script src="~/js/jquery.nice-select.min.js"></script>
+    <script src="~/js/jquery.zoom.min.js"></script>
+    <script src="~/js/jquery.dd.min.js"></script>
+    <script src="~/js/jquery.slicknav.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/main.js"></script>
 </body>
 </html>

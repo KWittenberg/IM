@@ -5,7 +5,6 @@ public class IdentityService : IIdentityService
     private RoleManager<IdentityRole> roleManager;
     private UserManager<ApplicationUser> userManager;
 
-
     public IdentityService(IServiceScopeFactory scopeFactory)
     {
         using (var scope = scopeFactory.CreateScope())

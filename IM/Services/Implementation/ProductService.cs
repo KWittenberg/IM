@@ -74,6 +74,17 @@ public class ProductService : IProductService
     }
 
     /// <summary>
+    /// Find Product by Name
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public async Task<ProductViewModel> GetProductByNameAsync(string name)
+    {
+        var dbo = await db.Product.Include(x => x.ProductCategory).FirstOrDefaultAsync(x => x.Title == name);
+        return mapper.Map<ProductViewModel>(dbo);
+    }
+
+    /// <summary>
     /// Find All Products
     /// </summary>
     /// <returns></returns>

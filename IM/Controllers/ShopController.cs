@@ -53,6 +53,31 @@ public class ShopController : Controller
 
 
 
+    /// <summary>
+    /// Get: Search Filter
+    /// </summary>
+    /// <param name="searchString"></param>
+    /// <returns></returns>
+    public async Task<IActionResult> Filter(string searchString)
+    {
+        var product = await this.productService.GetProductsAsync();
+
+        if (!string.IsNullOrEmpty(searchString))
+        {
+            var filteredResult = product.Where(n => n.Title.ToLower().Contains(searchString.ToLower()) || n.Description.ToLower().Contains(searchString.ToLower())).ToList();
+            return View("Index", filteredResult);
+        }
+        return View("Index", product);
+    }
+
+
+
+
+
+
+
+
+
 
     /// <summary>
     /// ShoppingCart

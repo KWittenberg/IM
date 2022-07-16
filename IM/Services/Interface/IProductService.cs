@@ -4,6 +4,7 @@ public interface IProductService
 {
     // ProductViewModel
     Task<ProductViewModel> GetProductAsync(int id);
+    Task<ProductViewModel> GetProductByNameAsync(string name);
     Task<List<ProductViewModel>> GetProductsAsync();
     Task<ProductViewModel> AddProductAsync(ProductBinding model);
     Task<ProductViewModel> UpdateProductAsync(ProductUpdateBinding model);

@@ -6,7 +6,6 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
     }
 
-
     public override int SaveChanges()
     {
         var entries = ChangeTracker.Entries().Where(e => e.Entity is IEntityBase && (e.State == EntityState.Added || e.State == EntityState.Modified));
@@ -44,7 +43,10 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     }
 
 
+    // Add ApplicationUser
     public DbSet<ApplicationUser> ApplicationUser { get; set; }
+    
+    // Add Address
     public DbSet<Address> Address { get; set; }
 
     // Add Product
@@ -57,7 +59,4 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 
     // Add Order
     public DbSet<Order> Order { get; set; }
-
-    // Add Order
-    public DbSet<IM.Models.ViewModel.ProductViewModel>? ProductViewModel { get; set; }
 }

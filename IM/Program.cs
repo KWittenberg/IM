@@ -53,4 +53,7 @@ app.MapRazorPages();
 // Add IdentityService for Create Role and User
 app.Services.GetService<IIdentityService>();
 
+//Seed database
+AppDbInitializer.Seed(app);
+
 app.Run();

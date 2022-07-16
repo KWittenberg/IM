@@ -11,27 +11,33 @@
 <br />
 <br />
 
-<div class="row row-cols-1 row-cols-md-3 g-4">
-    @foreach (var product in Model)
-    {
-        <div class="col">
-            <div class="card h-100">
-                <img src="/img/1997 Rudina/1997 Rudina 11.jpg" class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">@product.Title</h5>
-                    <p class="card-text">@product.Description</p>
-                </div>
-                <div class="card-footer">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            Price: <b>@string.Format("{0:C}",product.Price)</b>
+<div class="container">
+    <main role="main" class="pb-3">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            @foreach (var product in Model)
+            {
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="/img/1997 Rudina/1997 Rudina 11.jpg" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">@product.Title</h5>
+                            <p class="card-text">@product.Description</p>
                         </div>
-                        <div>
-                            <a href="@Url.Action("ItemView", "Shop", new { id = product.Id })" class="btn btn-primary btn-sm">Buy Now</a>
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    Price: <b>@string.Format("{0:C}",product.Price)</b>
+                                </div>
+                                <div>
+                                    <a href="@Url.Action("ItemView", "Shop", new { id = product.Id })" class="btn btn-primary btn-sm">Buy Now</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
         </div>
-    }
+    </main>
 </div>
+
+<partial name="_Footer" />

@@ -14,26 +14,20 @@
 
         <li class="nav-item"><a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hi @user.FirstName</a></li>
 
-       @* @switch (userRoles[0])
-        {
-            case Roles.Admin:
-                <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("ShoppingCart", "Home")">Cart</a></li>
-                <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("ProductAdministration", "Admin")">Administracija proizvoda</a></li>
-                break;
-            case Roles.User:
-                <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("ShoppingCart", "Home")">Cart</a></li>
-                break;
-        }*@
-        
-        <li class="nav-item">
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-            </form>
-        </li>
+        <ul class="dropdown">
+            <li class="ht-right">
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" class="nav-link btn btn-link">Logout</button>
+                </form>
+            </li>
+        </ul>
     }
     else
     {
-        <li class="nav-item"><a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a></li>
-        <li class="nav-item"><a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a></li>
+        <a class="login-panel" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        <ul class="dropdown">
+            <li class="ht-right"><a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a></li>
+        </ul>
     }
 </ul>
+
