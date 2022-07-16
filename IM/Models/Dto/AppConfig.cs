@@ -4,4 +4,3 @@ public class AppConfig
 {
     public int ShoppingCartOffset { get; set; }
 }
-

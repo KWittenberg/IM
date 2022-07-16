@@ -391,21 +391,14 @@ public class ProductService : IProductService
     /// <returns></returns>
     public async Task UpdateShoppinCartStatus()
     {
-        var shoppingCarts = await db.ShoppingCart
-            .Include(x => x.ShoppingCartItems)
-            .ThenInclude(x => x.Product)
+        var shoppingCarts = await db.ShoppingCart.Include(x => x.ShoppingCartItems).ThenInclude(x => x.Product)
             .Where(x => x.ShoppingCartStatus == ShoppingCartStatus.Pending && x.Created < DateTime.Now.AddHours(appConfig.ShoppingCartOffset))
             .ToListAsync();
 
-        if (!shoppingCarts.Any())
-        {
-            return;
-        }
+        if (!shoppingCarts.Any()) { return; }
 
         SuspendShoppingCarts(shoppingCarts);
-
         await db.SaveChangesAsync();
-
     }
 
     /// <summary>

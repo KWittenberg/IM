@@ -1,4 +1,4 @@
-﻿namespace WebShop.Services.Implementation;
+﻿namespace IM.Services.Implementation;
 
 public class QueueProcessor : BackgroundService
 {
@@ -18,11 +18,10 @@ public class QueueProcessor : BackgroundService
                 var productService = scope.ServiceProvider.GetService<IProductService>();
                 if (productService != null)
                 {
-
                     await productService.UpdateShoppinCartStatus();
                 }
             }
-            await Task.Delay(100000, stoppingToken);
+            await Task.Delay(1000, stoppingToken);
         }
     }
 }

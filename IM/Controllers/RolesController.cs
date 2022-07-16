@@ -1,4 +1,4 @@
-﻿namespace IdentityManager.Controllers;
+﻿namespace IM.Controllers;
 
 [Authorize(Roles = Roles.Admin)]
 public class RolesController : Controller
