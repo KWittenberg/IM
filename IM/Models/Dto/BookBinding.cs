@@ -4,8 +4,8 @@ namespace IM.Models.Dto;
 
 public enum BookBinding
 {
-    Tvrdi = 1,
-    Meki = 2,
-    [Description("Meki s klapnama")]
-    MekiSKlapnama = 3
+    Hard = 1,
+    Soft = 2,
+    [Description("Soft With Flaps")]
+    SoftWithFlaps = 3
 }

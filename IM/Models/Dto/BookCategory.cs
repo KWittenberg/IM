@@ -2,6 +2,6 @@
 
 public enum BookCategory
 {
-    Monografije = 1,
-    Pjesme = 2
+    Monography = 1,
+    Poems = 2
 }

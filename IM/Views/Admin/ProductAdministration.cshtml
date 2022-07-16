@@ -3,50 +3,55 @@
     int counter = 1;
 }
 
-<br/>
-<br/>
-<h1>Product</h1>
-<br/>
+<div class="container">
+    <main role="main" class="pb-3">
 
-<div class="card">
-    <div class="card-body p-0">
-        <table class="table table-striped table-hover">
-            <thead>
-            <tr>
-                <th style="width: 3%">#</th>
-                <th style="width: 10%">Image</th>
-                <th style="width: 15%">Title</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th style="width: 10%"><a asp-controller="Admin" asp-action="AddProduct" class="btn btn-block btn-secondary btn-sm"><i class="bi bi-plus-circle"></i> &nbsp; Add New</a></th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@counter</td>
-                    <td><img src="/img/1997 Rudina/1997 Rudina 11.jpg" width="100px"></td>
-                    <td>@item.Title</td>
-                    <td>@item.Description</td>
-                    <td>@item.Price</td>
-                    <td>@item.Quantity</td>
-                    <td>
-                        <div class="btn-group btn-group-sm">
-                            <a asp-controller="Admin" asp-action="DetailsProduct" asp-route-id="@item.Id" class="btn btn-secondary btn-sm"><i class="bi bi-eye"></i></a>
-                            <a asp-controller="Admin" asp-action="EditProduct" asp-route-id="@item.Id" class="btn btn-secondary btn-sm"><i class="bi bi-pencil-square"></i></a>
-                            <a asp-controller="Admin" asp-action="DeleteProduct" asp-route-id="@item.Id" class="btn btn-secondary btn-sm"><i class="bi bi-trash"></i></a>
-                        </div>
-                    </td>
-                </tr>
-                counter++;
-            }
-            </tbody>
-        </table>
-    </div>
+        <br />
+        <br />
+        <h1>Product</h1>
+        <br />
+
+        <div class="card">
+            <div class="card-body p-0">
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th style="width: 2%">#</th>
+                            <th style="width: 10%">Image</th>
+                            <th style="width: 20%">Title</th>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th style="width: 12%"><a asp-controller="Admin" asp-action="AddProduct" class="btn btn-block btn-secondary btn-sm"><i class="bi bi-plus-circle"></i> &nbsp; Add New</a></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@counter</td>
+                                <td><img src="@item.Image" width="100px"></td>
+                                <td>@item.Title</td>
+                                <td>@item.ShortDescription</td>
+                                <td>@item.Quantity</td>
+                                <td>@item.Price</td>
+                                <td>
+                                    <div class="btn-group btn-group-sm">
+                                        <a asp-controller="Admin" asp-action="DetailsProduct" asp-route-id="@item.Id" class="btn btn-secondary btn-sm"><i class="bi bi-eye"></i></a>
+                                        <a asp-controller="Admin" asp-action="EditProduct" asp-route-id="@item.Id" class="btn btn-secondary btn-sm"><i class="bi bi-pencil-square"></i></a>
+                                        <a asp-controller="Admin" asp-action="DeleteProduct" asp-route-id="@item.Id" class="btn btn-secondary btn-sm"><i class="bi bi-trash"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            counter++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
 </div>
-            
+
 @*@await Html.PartialAsync("_CreateItem", "Admin")
 <a class="btn btn-primary" href="@Url.Action("AddProduct", "Admin")">Add product</a>
 <a class="btn btn-primary" href="@Url.Action("AddProductCategory", "Admin")">Dodaj novu kategoriju</a>*@
