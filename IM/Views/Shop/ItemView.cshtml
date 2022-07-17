@@ -7,9 +7,6 @@
     var shoppingCart = await productService.GetShoppingCartAsync(user.Id);
 }
 
-<br />
-<br />
-
 @using (Html.BeginForm())
 {
     <input type="text" readonly hidden value="@Model.Id" name="ProductId">
@@ -19,141 +16,293 @@
         <input type="text" readonly hidden value="@shoppingCart.Id" name="ShoppingCartId">
     }
 
-    <!-- Main content -->
-    <div class="container mt-5">
-        <section class="content">
-
-            <!-- Default box -->
-            @* <div class="card card-solid">
-        <div class="card-body">*@
+    <!-- Product Shop Section Begin -->
+    <section class="product-shop spad page-details">
+        <div class="container">
             <div class="row">
-
-                <div class="col-12 col-sm-6">
-                    <div class="col-12">
-                        <img src="@Model.Image" class="img-fluid" alt="Product Image">
-                    </div>
-                </div>
-
-                <div class="col-11 col-sm-6">
-                    <h2 align="center" style="color: darkgray">@Model.Title</h2>
-                    <h5 class="mt-2" align="center">@Model.Author</h5>
-                    <hr />
-                    <p>@Model.ShortDescription</p>
-                    <hr />
-
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <p align="left">Category: <b>@Model.ProductCategory.Title</b> @Model.BookCategory</p>
-                            <p align="left">Book Binding: <b>@Model.BookBinding</b></p>
-                            <p align="left">Still left: <b>@Model.Quantity</b></p>
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="product-pic-zoom">
+                                <img class="product-big-img" src="@Model.Image" alt="">
+                                <div class="zoom-icon">
+                                    <i class="fa fa-search-plus"></i>
+                                </div>
+                            </div>
+                            <div class="product-thumbs">
+                                <div class="product-thumbs-track ps-slider owl-carousel">
+                                    <div class="pt active" data-imgbigurl="/img/2002 Sesvetacki Kraj U Srcu Poljadije/2002 Sesvetacki Kraj U Srcu Poljadije 01 1x1.jpg">
+                                        <img src="/img/2002 Sesvetacki Kraj U Srcu Poljadije/2002 Sesvetacki Kraj U Srcu Poljadije 01 1x1.jpg" alt="">
+                                    </div>
+                                    <div class="pt" data-imgbigurl="/img/2002 Sesvetacki Kraj U Srcu Poljadije/2002 Sesvetacki Kraj U Srcu Poljadije 02 1x1.jpg">
+                                        <img src="/img/2002 Sesvetacki Kraj U Srcu Poljadije/2002 Sesvetacki Kraj U Srcu Poljadije 02 1x1.jpg" alt="">
+                                    </div>
+                                    <div class="pt" data-imgbigurl="/img/2002 Sesvetacki Kraj U Srcu Poljadije/2002 Sesvetacki Kraj U Srcu Poljadije 03 1x1.jpg">
+                                        <img src="/img/2002 Sesvetacki Kraj U Srcu Poljadije/2002 Sesvetacki Kraj U Srcu Poljadije 03 1x1.jpg" alt="">
+                                    </div>
+                                    <div class="pt" data-imgbigurl="/img/2002 Sesvetacki Kraj U Srcu Poljadije/2002 Sesvetacki Kraj U Srcu Poljadije 04 1x1.jpg">
+                                        <img src="/img/2002 Sesvetacki Kraj U Srcu Poljadije/2002 Sesvetacki Kraj U Srcu Poljadije 04 1x1.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <div align="right">
-                                <a class="text-gray" href="https://www.linkedin.com/in/kresimirwittenberg"><i class="fab fa-linkedin-square"></i></a>
-                                <a class="text-gray" href="https://www.facebook.com/kresimirwittenberg"><i class="fab fa-facebook-square"></i></a>
-                                <a class="text-gray" href="https://www.instagram.com/kresimirwittenberg/"><i class="fab fa-instagram-square"></i></a>
-                                <a class="text-gray" href="https://github.com/KWittenberg"><i class="fab fa-github-square"></i></a>
-                                <a class="text-gray" href="https://www.behance.net/kwittenberg"><i class="fab fa-behance-square"></i></a>
-                                <a class="text-gray" href="https://twitter.com/WBolta"><i class="fab fa-twitter-square"></i></a>
-                                <a href="#" class="text-gray"><i class="fas fa-envelope-square"></i></a>
-                                <a href="#" class="text-gray"><i class="fas fa-rss-square"></i></a>
+                        <div class="col-lg-6">
+                            <div class="product-details">
+                                <div class="pd-title">
+                                    <span>@Model.Author</span>
+                                    <h3>@Model.Title</h3>
+                                    <a href="#" class="heart-icon"><i class="icon_heart_alt"></i></a>
+                                </div>
+                                <div class="pd-rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    @*<i class="fa fa-star-o"></i>*@
+                                    <span>(5)</span>
+                                </div>
+
+                                <div class="pd-desc">
+                                    <hr />
+                                    <p>@Model.ShortDescription</p>
+                                    <hr />
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <p align="left">Category: <b>@Model.ProductCategory.Title</b> @Model.BookCategory</p>
+                                        <p align="left">Book Binding: <b>@Model.BookBinding</b></p>
+                                        <p align="left">Still left: <b>@Model.Quantity</b></p>
+                                    </div>
+                                    <div>
+                                        <div align="right">
+                                            <a href="https://www.linkedin.com/in/kresimirwittenberg"><i class="ti-linkedin"></i></a>
+                                            <a href="https://www.facebook.com/kresimirwittenberg"><i class="ti-facebook"></i></a>
+                                            <a href="https://www.instagram.com/kresimirwittenberg/"><i class="ti-instagram"></i></a>
+                                            <a href="https://github.com/KWittenberg"><i class="ti-github"></i></a>
+                                            <a href="https://www.behance.net/kwittenberg"><i class="ti-behance"></i></a>
+                                            <a href="https://twitter.com/WBolta"><i class="ti-twitter"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pd-desc"><h3>@string.Format("{0:C}",Model.DiscountPrice) <span> @string.Format("{0:C}",Model.Price)</span></h3></div>
+                                <input type="text" readonly hidden value="@Model.Price" name="Price">
+
+                                <div class="mt-5 quantity">
+                                    <div class="pro-qty"><input name="Quantity" type="text" value="1" style=""></div>
+                                    <a type="submit" name="Quantity" value="Add to Cart" asp-route-id="@Model.Id" asp-controller="Shop" asp-action="ShoppingCart" class="primary-btn pd-cart"><i class="fas fa-cart-plus fa-lg mr-2"></i> Add To Cart</a>
+                                    <input type="submit" value="Add to Cart" class="btn btn-primary btn-lg">
+                                    </div>
+                                <div class="mt-5 d-grid gap-2">
+                                    <a class="btn btn-lg" asp-controller="Shop" asp-action="Index">Continue Shopping</a>
+                                </div>    
+                                
                             </div>
                         </div>
                     </div>
-
-                    <h2 align="center" class="mb-0">@string.Format("{0:C}",Model.DiscountPrice)<sub style="color:grey"><s> @string.Format("{0:C}",Model.Price)</s></sub></h2>
-
-                    @*@Html.TextBoxFor(model => model.Price,new {@readonly = true, @class = "form-control readonly hidden"})*@
-                    <input type="text" readonly hidden value="@Model.Price" name="Price">
-                    <br />
-
-                    <dt class="col-sm-3 offset-1">Quantity</dt>
-                    <dd class="col-sm-3 offset-1">
-                        <select name="Quantity" class="form-select" aria-label="Default select example">
-                            @for (int i = 1; i <= Model.Quantity; i++)
-                            {
-                                <option value="@i">
-                                    @i
-                                </option>
-                            }
-                        </select>
-                    </dd>
-
-                    <div class="col-sm-10 offset-1">
-                        <input type="submit" value="Add to Cart" class="btn btn-primary btn-lg btn-flat">
-                        @*<div class="btn btn-primary btn-lg btn-flat"><a asp-route-id="@Model.Id" asp-controller="Shop" asp-action="ShoppingCart"><i class="fas fa-cart-plus fa-lg mr-2"></i> Add to Cart</a></div>*@
-                        <div class="btn btn-default btn-lg btn-flat"><i class="fas fa-heart fa-lg mr-2"></i> Add to Wishlist</div>
-                        <div class="btn btn-default btn-lg btn-flat"><a asp-controller="Shop" asp-action="Index">Back</a></div>
+                    <div class="product-tab">
+                        <div class="tab-item col-lg-10 offset-1">
+                            <ul class="nav justify-content-center" role="tablist">
+                                <li><a class="active" data-toggle="tab" href="#tab-1" role="tab">DESCRIPTION</a></li>
+                                <li><a data-toggle="tab" href="#tab-2" role="tab">SPECIFICATIONS</a></li>
+                                @*<li><a data-toggle="tab" href="#tab-3" role="tab">Customer Reviews (02)</a></li>*@
+                            </ul>
+                        </div>
+                        <div class="tab-item-content">
+                            <div class="tab-content">
+                                <div class="tab-pane fade-in active" id="tab-1" role="tabpanel">
+                                    <div class="product-content">
+                                        <div class="row">
+                                            <div class="col-lg-10 offset-1">
+                                                <h5>@Model.Title</h5>
+                                                <p>@Model.Description</p>
+                                            </div>
+                                            <div class="col-lg-5">
+                                                <img src="" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="tab-2" role="tabpanel">
+                                    <div class="mt-5 container-sm text-center" style="max-width: 600px;">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr><th scope="row">Category</th><td>@Model.BookCategory</td></tr>
+                                                <tr><th scope="row">Binding</th><td>@Model.BookBinding</td></tr>
+                                                <tr><th scope="row">Publisher</th><td>@Model.Publisher</td></tr>
+                                                <tr><th scope="row">ISBN</th><td>@Model.Isbn</td></tr>
+                                                <tr><th scope="row">Year Of Publication</th><td>@Model.YearOfPublication</td></tr>
+                                                <tr><th scope="row">Number Of Pages</th><td>@Model.NumberOfPages</td></tr>
+                                                <tr><th scope="row">Size</th><td>@Model.Width x @Model.Height x @Model.Thickness</td></tr>
+                                                <tr><th scope="row">Weight</th><td>@Model.Weight</td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="tab-3" role="tabpanel">
+                                    <div class="customer-review-option">
+                                        <h4>2 Comments</h4>
+                                        <div class="comment-option">
+                                            <div class="co-item">
+                                                <div class="avatar-pic">
+                                                    <img src="img/product-single/avatar-1.png" alt="">
+                                                </div>
+                                                <div class="avatar-text">
+                                                    <div class="at-rating">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                    </div>
+                                                    <h5>Brandon Kelley <span>27 Aug 2019</span></h5>
+                                                    <div class="at-reply">Nice !</div>
+                                                </div>
+                                            </div>
+                                            <div class="co-item">
+                                                <div class="avatar-pic">
+                                                    <img src="img/product-single/avatar-2.png" alt="">
+                                                </div>
+                                                <div class="avatar-text">
+                                                    <div class="at-rating">
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star-o"></i>
+                                                    </div>
+                                                    <h5>Roy Banks <span>27 Aug 2019</span></h5>
+                                                    <div class="at-reply">Nice !</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="personal-rating">
+                                            <h6>Your Ratind</h6>
+                                            <div class="rating">
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star-o"></i>
+                                            </div>
+                                        </div>
+                                        <div class="leave-comment">
+                                            <h4>Leave A Comment</h4>
+                                            <form action="#" class="comment-form">
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <input type="text" placeholder="Name">
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <input type="text" placeholder="Email">
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <textarea placeholder="Messages"></textarea>
+                                                        <button type="submit" class="site-btn">Send message</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <br />
-            <br />
-
-
-
-
-
-
-
-
-            <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
-
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">DESCRIPTION</button>
-                </li>
-
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">ADDITIONAL INFORMATION</button>
-                </li>
-
-                @*<li class="nav-item" role="presentation">
-            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">TOMISLAV WITTENBERG</button>
-            </li>*@
-
-
-            </ul>
-            <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-                    <br />
-                    <br />
-                    <h2 align="center">@Model.Title</h2>
-                    <br />
-                    <br />
-                    @Model.Description
-                    <br />
-                    <br />
-                </div>
-                <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-                    <br />
-                    <br />
-                    <div class="container-sm text-center" style="max-width: 500px;">
-                        <table class="table">
-                            <tbody>
-                                <tr><th scope="row">Category</th><td>@Model.BookCategory</td></tr>
-                                <tr><th scope="row">Binding</th><td>@Model.BookBinding</td></tr>
-                                <tr><th scope="row">Publisher</th><td>@Model.Publisher</td></tr>
-                                <tr><th scope="row">ISBN</th><td>@Model.Isbn</td></tr>
-                                <tr><th scope="row">Year Of Publication</th><td>@Model.YearOfPublication</td></tr>
-                                <tr><th scope="row">Number Of Pages</th><td>@Model.NumberOfPages</td></tr>
-                                <tr><th scope="row">Width</th><td>@Model.Width</td></tr>
-                                <tr><th scope="row">Height</th><td>@Model.Height</td></tr>
-                                <tr><th scope="row">Thickness</th><td>@Model.Thickness</td></tr>
-                                <tr><th scope="row">Weight</th><td>@Model.Weight</td></tr>
-                            </tbody>
-                        </table>
+        </div>
+    </section>
+    <!-- Product Shop Section End -->
+    <!-- Related Products Section End -->
+    <div class="related-products spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>Related Products</h2>
                     </div>
-                    <br />
                 </div>
-                @*<div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-            @Model.Description
-            </div>*@
             </div>
-            <!-- /.card-body -->
-            <!-- /.card -->
-        </section>
-        <!-- /.content -->
+            <div class="row">
+                <div class="col-lg-3 col-sm-6">
+                    <div class="product-item">
+                        <div class="pi-pic">
+                            <img src="/img/1996 Groblja Pozeske Doline/1996 Groblja Pozeske Doline.jpg" alt="">
+                            <div class="sale">Sale</div>
+                            <div class="icon"><i class="icon_heart_alt"></i></div>
+                            <ul>
+                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="pi-text">
+                            <div class="catagory-name">T. Wittenberg</div>
+                            <a href="#"><h5>Groblja Pozeske Doline</h5></a>
+                            <div class="product-price">150.00 kn <span>200.00 kn</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="product-item">
+                        <div class="pi-pic">
+                            <img src="/img/1997 Rudina/1997 Rudina.jpg" alt="">
+                            <div class="sale">Sale</div>
+                            <div class="icon"><i class="icon_heart_alt"></i></div>
+                            <ul>
+                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="pi-text">
+                            <div class="catagory-name">T. Wittenberg</div>
+                            <a href="#"><h5>Rudina</h5></a>
+                            <div class="product-price">300.00 kn <span>250.00 kn</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="product-item">
+                        <div class="pi-pic">
+                            <img src="/img/2004 Pjesme/2004 Pjesme.jpg" alt="">
+                            <div class="sale">Sale</div>
+                            <div class="icon"><i class="icon_heart_alt"></i></div>
+                            <ul>
+                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="pi-text">
+                            <div class="catagory-name">V. Hip</div>
+                            <a href="#"><h5>Pjesme</h5></a>
+                            <div class="product-price">80.00 kn <span>50.00 kn</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="product-item">
+                        <div class="pi-pic">
+                            <img src="/img/2004 Putopisne Impresije/2004 Putopisne Impresije.jpg" alt="">
+                            <div class="sale">Sale</div>
+                            <div class="icon"><i class="icon_heart_alt"></i></div>
+                            <ul>
+                                <li class="w-icon active"><a href="#"><i class="icon_bag_alt"></i></a></li>
+                                <li class="quick-view"><a href="#">+ Quick View</a></li>
+                                <li class="w-icon"><a href="#"><i class="fa fa-random"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="pi-text">
+                            <div class="catagory-name">B. Živković</div>
+                            <a href="#"><h5>Putopisne Impresije</h5></a>
+                            <div class="product-price">100.00 kn <span>80.00 kn</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <!-- Related Products Section End -->
 }
 <partial name="_Footer" />

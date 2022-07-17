@@ -18,7 +18,7 @@ public class HomeController : Controller
     {
         return View(productService.GetProductsAsync().Result);
     }
-    
+
 
     //[Authorize]
     //public async Task<IActionResult> ItemView(int id)
@@ -45,6 +45,12 @@ public class HomeController : Controller
     //    return View(shoppingCart);
     //}
 
+
+    public IActionResult Contact()
+    {
+        return View();
+    }
+    
     public IActionResult About()
     {
         return View();
