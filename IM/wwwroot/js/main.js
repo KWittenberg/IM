@@ -30,7 +30,7 @@
         animateOut: 'fadeOut',
         animateIn: 'fadeIn',
         navText: ['<i class="ti-angle-left"></i>', '<i class="ti-angle-right"></i>'],
-        smartSpeed: 1200,
+        smartSpeed: 4000,
         autoHeight: false,
         autoplay: true,
     });
@@ -45,7 +45,7 @@
         items: 4,
         dots: true,
         navText: ['<i class="ti-angle-left"></i>', '<i class="ti-angle-right"></i>'],
-        smartSpeed: 1200,
+        smartSpeed: 2000,
         autoHeight: false,
         autoplay: true,
         responsive: {
@@ -56,10 +56,10 @@
                 items: 2,
             },
             992: {
-                items: 2,
+                items: 3,
             },
             1200: {
-                items: 3,
+                items: 4,
             }
         }
     });
@@ -193,10 +193,10 @@
 			var newVal = parseFloat(oldValue) + 1;
 		} else {
 			// Don't allow decrementing below zero
-			if (oldValue > 0) {
+			if (oldValue > 1) {
 				var newVal = parseFloat(oldValue) - 1;
 			} else {
-				newVal = 0;
+				newVal = 1;
 			}
 		}
 		$button.parent().find('input').val(newVal);

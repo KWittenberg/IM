@@ -156,11 +156,30 @@ ol {
     display: inline-block;
     font-size: 14px;
     font-weight: 700;
-    padding: 12px 30px;
+    padding: 13px 45px 11px;
     color: #ffffff;
     background: #e7ab3c;
+    border: 1px solid #e7ab3c;
     text-transform: uppercase;
 }
+
+.secondary-btn {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 13px 45px 11px;
+    color: #ffffff;
+    background: black;
+    border: 1px solid black;
+    text-transform: uppercase;
+}
+
+
+
+
+
+
+
 
 .site-btn {
     color: #ffffff;
@@ -1089,15 +1108,15 @@ ol {
     font-size: 30px;
     position: absolute;
     left: -62px;
-    top: 25%;
-    color: #171717;
+    top: 35%;
+    color: darkgray;
     opacity: 0.3;
 }
 
     .product-slider .owl-nav button[type=button].owl-next {
         left: auto;
         right: -62px;
-        color: #171717;
+        color: darkgray;
         opacity: 1;
     }
 
@@ -3753,7 +3772,7 @@ ol {
 
 .register-form h2,
 .login-form h2 {
-    color: #252525;
+    color: darkgray;
     font-weight: 700;
     text-align: center;
     margin-bottom: 35px;

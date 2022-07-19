@@ -90,9 +90,23 @@
 
                                 <div class="mt-5 quantity">
                                     <div class="pro-qty"><input name="Quantity" type="text" value="1" style=""></div>
-                                    <a type="submit" name="Quantity" value="Add to Cart" asp-route-id="@Model.Id" asp-controller="Shop" asp-action="ShoppingCart" class="primary-btn pd-cart"><i class="fas fa-cart-plus fa-lg mr-2"></i> Add To Cart</a>
-                                    <input type="submit" value="Add to Cart" class="btn btn-primary btn-lg">
+                                    
+                                    <input type="submit" value="Add to Cart" class="site-btn place-btn">
+                                    @*<a type="submit" name="Quantity" value="Add to Cart" asp-route-id="@Model.Id" asp-controller="Shop" asp-action="ShoppingCart" class="primary-btn pd-cart"><i class="fas fa-cart-plus fa-lg mr-2"></i> Add To Cart</a>*@
+                                    @*<input type="submit" value="Add to Cart" class="btn btn-primary btn-lg">*@
                                     </div>
+                                
+                                
+                                @*<div class="select-button">
+                                    <a href="#" class="primary-btn view-card">VIEW CARD</a>
+                                    <a href="#" class="primary-btn checkout-btn">CHECK OUT</a>
+                                </div>
+                                
+                                <div class="order-btn">
+                                    <button type="submit" class="site-btn place-btn">Place Order</button>
+                                </div>*@
+                                
+                                
                                 <div class="mt-5 d-grid gap-2">
                                     <a class="btn btn-lg" asp-controller="Shop" asp-action="Index">Continue Shopping</a>
                                 </div>    

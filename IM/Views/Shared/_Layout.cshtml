@@ -23,7 +23,6 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/BootswatchSlate.css" asp-append-version="true" />
     @*<link rel="stylesheet" href="~/IM.styles.css" asp-append-version="true" />*@
-
     @*<link rel="stylesheet" href="~/css/bootstrap.min.css" type="text/css">*@
     <link rel="stylesheet" href="~/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="~/css/themify-icons.css" type="text/css">
@@ -34,14 +33,20 @@
     <link rel="stylesheet" href="~/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="~/css/style.css" type="text/css">
 
+    <!-- magnific-popup.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css" type="text/css">
+
+
     <!-- Toast -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
+
 
     @RenderSection("aditionalccsSection", required: false)
 
 </head>
 <body>
-    
+
 
 
     <partial name="_Header" />
@@ -121,7 +126,7 @@
 
 
 
-    @RenderSection("modalSection", required: false);
+    @RenderSection("modalSection", required: false)
 
 
 
@@ -135,28 +140,22 @@
                     </div>
                 </footer>
             -->
-
-
-
-
-
-
-
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     @*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 
-
-
-
-
+    <!-- magnific-popup.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <script> $(document).ready(function() { $('.popupImg').magnificPopup({ type: 'image' }); });</script>
 
     <!-- Js Plugins -->
-    <script src="~/js/jquery-3.3.1.min.js"></script>
-    <script src="~/js/bootstrap.min.js"></script>
+    @*<script src="~/js/jquery-3.3.1.min.js"></script>*@
+    <script src="~/js/bootstrap.min.js">
+    </script>
     <script src="~/js/jquery-ui.min.js"></script>
     <script src="~/js/jquery.countdown.min.js"></script>
     <script src="~/js/jquery.nice-select.min.js"></script>
