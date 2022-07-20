@@ -38,17 +38,17 @@ public class AdminController : Controller
 
 
     /// <summary>
-    /// Add Product
+    /// Create Product
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    public async Task<IActionResult> AddProduct()
+    public async Task<IActionResult> Create()
     {
         return View();
     }
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> AddProduct(ProductBinding model)
+    public async Task<IActionResult> Create(ProductBinding model)
     {
         await productService.AddProductAsync(model);
         TempData["success"] = "Product created successfully";

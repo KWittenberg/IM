@@ -17,7 +17,7 @@
                         <th>Description</th>
                         <th>Quantity</th>
                         <th>Price</th>
-                        <th style="width: 12%"><a asp-controller="Admin" asp-action="AddProduct" class="btn btn-block btn-secondary btn-sm"><i class="bi bi-plus-circle"></i> &nbsp; Add New</a></th>
+                        <th style="width: 12%"><a asp-controller="Admin" asp-action="Create" class="btn btn-block btn-secondary btn-sm"><i class="bi bi-plus-circle"></i> &nbsp; Add New</a></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,6 +46,4 @@
     </main>
 </div>
 
-@*@await Html.PartialAsync("_CreateItem", "Admin")
-<a class="btn btn-primary" href="@Url.Action("AddProduct", "Admin")">Add product</a>
-<a class="btn btn-primary" href="@Url.Action("AddProductCategory", "Admin")">Dodaj novu kategoriju</a>*@
+@await Html.PartialAsync("_CreateItem", "Admin")
