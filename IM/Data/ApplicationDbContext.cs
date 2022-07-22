@@ -17,6 +17,9 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
                 case EntityState.Added:
                     ((IEntityBase)entityEntry.Entity).Created = DateTime.Now;
                     break;
+                case EntityState.Modified:
+                    ((IEntityBase)entityEntry.Entity).Created = DateTime.Now;
+                    break;
                 default:
                     break;
             }
@@ -33,6 +36,9 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
             switch (entityEntry.State)
             {
                 case EntityState.Added:
+                    ((IEntityBase)entityEntry.Entity).Created = DateTime.Now;
+                    break;
+                case EntityState.Modified:
                     ((IEntityBase)entityEntry.Entity).Created = DateTime.Now;
                     break;
                 default:
