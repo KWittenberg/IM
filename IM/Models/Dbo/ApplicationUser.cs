@@ -2,9 +2,12 @@
 
 public class ApplicationUser : IdentityUser
 {
-    public string FirstName { get; set; }
-    public string LastName { get; set; }
-    public DateTime DOB { get; set; }
+    public string? FirstName { get; set; }
+    public string? LastName { get; set; }
+    public string Email { get; set; }
+    public string Password { get; set; }
+    public bool RememberMe { get; set; }
+    public DateTime? DOB { get; set; }
 
     // Add Address
     public ICollection<Address> Address { get; set; }

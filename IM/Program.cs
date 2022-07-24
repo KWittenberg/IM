@@ -5,7 +5,21 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+// Add ApplicationUser OLD
+// builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+
+// Add ApplicationUser NEW
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+    {
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireDigit = false;
+        options.SignIn.RequireConfirmedEmail = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireLowercase = false;
+        options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+        options.ClaimsIdentity.UserIdClaimType = JwtRegisteredClaimNames.Jti;
+    }).AddRoles<IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+
 
 // Add AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
@@ -15,6 +29,9 @@ builder.Services.AddControllersWithViews();
 // Add Startup for UpdateShoppinCartStatus
 builder.Services.Configure<AppConfig>(builder.Configuration);
 
+
+// Add ApplicationUserService
+builder.Services.AddScoped<IApplicationUserService, ApplicationUserService>();
 // Add IdentityService
 builder.Services.AddSingleton<IIdentityService, IdentityService>();
 // Add ProductService

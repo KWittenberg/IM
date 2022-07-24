@@ -10,9 +10,9 @@
 <ul class="navbar-nav">
     @if (user != null)
     {
-        var userRoles = await UserManager.GetRolesAsync(user);
+        var userRole = await UserManager.GetRolesAsync(user);
 
-        <li class="nav-item"><a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hi @user.FirstName</a></li>
+        <li class="nav-item"><a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hi @foreach (var role in userRole){@role}!</a></li>
 
         <ul class="dropdown">
             <li class="ht-right">
@@ -24,9 +24,12 @@
     }
     else
     {
-        <a class="login-panel" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        @*<a class="login-panel" asp-area="Identity" asp-page="/Account/Login">Login</a>*@
+        <a class="nav-link" href="@Url.Action("Login", "ApplicationUser")">Login</a>
+
         <ul class="dropdown">
-            <li class="ht-right"><a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a></li>
+            @*<li class="ht-right"><a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a></li>*@
+            <li class="ht-right"><a class="nav-link" href="@Url.Action("Register", "ApplicationUser")">Register</a></li>
         </ul>
     }
 </ul>
